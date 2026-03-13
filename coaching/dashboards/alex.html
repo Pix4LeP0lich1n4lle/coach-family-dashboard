@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Coaching - Alex Delorey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4ECDC4 0%, #1A97A0 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header-content p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #4ECDC4;
+            border-bottom-color: #4ECDC4;
+        }
+
+        .tab-btn:hover {
+            color: #4ECDC4;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box.accent {
+            background: linear-gradient(135deg, #4ECDC4 0%, #1A97A0 100%);
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .archetype-box {
+            background: linear-gradient(135deg, #4ECDC4 0%, #1A97A0 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .archetype-box h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .archetype-box p {
+            font-size: 13px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .status-engagement {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-ghost {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .status-fading {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #4ECDC4;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #4ECDC4;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 12px;
+            width: 2px;
+            height: calc(100% + 8px);
+            background: #e0e0e0;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: #4ECDC4;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .timeline-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #e0f2f1;
+            color: #00695c;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge.breakthrough {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .entry-quote {
+            background: #f8f9fa;
+            border-left: 4px solid #4ECDC4;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: #f8f9fa;
+            border-bottom: 2px solid #4ECDC4;
+        }
+
+        th {
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .highlight {
+            background: #e0f2f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            border-left: 4px solid #4ECDC4;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .insight-box h4 {
+            color: #00695c;
+            margin-bottom: 8px;
+        }
+
+        .insight-box p {
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Alex Delorey 🎯</h1>
+                <p>Guerrière de l'Habitude — Espace de coaching personnalisé</p>
+            </div>
+            <button class="logout-btn" onclick="logout()">Quitter</button>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('overview', this)">📊 Vue d'ensemble</button>
+            <button class="tab-btn" onclick="switchTab('progression', this)">📈 Progression S01-S09</button>
+            <button class="tab-btn" onclick="switchTab('pivot', this)">🔄 Le Pivot Crucial</button>
+            <button class="tab-btn" onclick="switchTab('coaching', this)">💡 Plan S10</button>
+        </div>
+
+        <!-- TAB: OVERVIEW -->
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <div class="archetype-box">
+                    <h3>💪 Guerrière de l'Habitude</h3>
+                    <p>
+                        <strong>Âge:</strong> 29 ans<br/>
+                        <strong>Focus:</strong> Marche 40k pas/sem, escaliers, yoga | Intégration mouvement + discipline zéro ascenseur<br/>
+                        <strong>Domaines clés:</strong> Escaliers (habitude systématique), marche midi, training, yoga, gestion SPM
+                    </p>
+                </div>
+
+                <h2>📊 Vue d'ensemble S01-S09</h2>
+                <div class="stat-grid">
+                    <div class="stat-box accent">
+                        <div class="stat-value">40%</div>
+                        <div class="stat-label">Taux Moyen</div>
+                    </div>
+                    <div class="stat-box accent">
+                        <div class="stat-value">35</div>
+                        <div class="stat-label">Entrées Totales</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">80%</div>
+                        <div class="stat-label">Peak (S01)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">0%</div>
+                        <div class="stat-label">Lowest (S05)</div>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 20px;">État Actuel S09</h2>
+                <span class="status-badge status-engagement">🟢 ENGAGEMENT (60%)</span>
+                <p style="color: #666; font-size: 14px; line-height: 1.6;">
+                    Engagement stable après la charge lourde mars-avril. Marche midi avec collègues, training régulier, yoga.
+                    SPM impact géré. Montée constante depuis S06 pivot.
+                </p>
+
+                <h2 style="margin-top: 30px;">⭐ Moments Clés Identifiés</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">S01 - 12-22 janvier</div>
+                            <div class="timeline-title">🚀 Strong Start</div>
+                            <div class="entry-quote">
+                                "J'ai pris les marches!!! / Victoire! / Journée de patate somme toute, but it's okay it happens"
+                            </div>
+                            <span class="badge breakthrough">80% ENGAGEMENT</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">S05 - 15 février</div>
+                            <div class="timeline-title">⬇️ Rock Bottom (0%)</div>
+                            <div class="entry-quote">
+                                "I admit it, ça pas été ma meilleure semaine. C'est ma période chargée de l'année
+                                et c'est difficile pour moi d'atteindre 40 000 pas quand je pars de rien."
+                            </div>
+                            <span class="badge">Turning point incoming</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">S06 - 7 février (rétro)</div>
+                            <div class="timeline-title">🔄 PIVOT: Goal Flexibility</div>
+                            <div class="entry-quote">
+                                "Mon objectif de pas sera maintenant variable entre 25 000 et 31 500 pas par semaine.
+                                Un objectif variable me semble plus raisonnable."
+                            </div>
+                            <span class="badge breakthrough">Game-changing reframe</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">S06 - 7 février</div>
+                            <div class="timeline-title">✅ Escaliers Automatisés</div>
+                            <div class="entry-quote">
+                                "Je monte maintenant les marches chaque fois que je vais au bureau.
+                                Je n'ai pas pris l'ascenseur depuis 2 semaines!!!"
+                            </div>
+                            <span class="badge">Habit = no willpower needed</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">S06 - 7 février</div>
+                            <div class="timeline-title">☀️ Marche Midi = Energy Booster</div>
+                            <div class="entry-quote">
+                                "Une simple marche de 15 minutes dehors me redonne de l'énergie...
+                                Donc c'est motivant et ça me donne envie de continuer!!!"
+                            </div>
+                            <span class="badge">Social + physical + mental</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">S08-S09</div>
+                            <div class="timeline-title">📈 Sustainable Consistency</div>
+                            <div class="entry-quote">
+                                "20 minutes walk avec un collègue sur l'heure du dîner :) / Training 20min + practice rope pose /
+                                Yoga flow 20 minutes avant le dodo"
+                            </div>
+                            <span class="badge">Maintenance = success</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: PROGRESSION -->
+        <div id="progression" class="tab-content">
+            <div class="card">
+                <h2>📈 Courbe d'Évolution Semaine par Semaine</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Semaine</th>
+                                <th>Dates</th>
+                                <th>Entrées</th>
+                                <th>Taux</th>
+                                <th>État</th>
+                                <th>Domaines Actifs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #e8f5e9;">
+                                <td><strong>S01</strong></td>
+                                <td>12-22 jan</td>
+                                <td>4</td>
+                                <td><span class="highlight">80%</span></td>
+                                <td>🟢 ENGAGEMENT</td>
+                                <td>Escaliers + victoire</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S02</strong></td>
+                                <td>18-24 jan</td>
+                                <td>1</td>
+                                <td><span class="highlight">40%</span></td>
+                                <td>🟡 FADING</td>
+                                <td>Dip after high</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S03</strong></td>
+                                <td>25-31 jan</td>
+                                <td>0</td>
+                                <td>❌</td>
+                                <td>Silence</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S04</strong></td>
+                                <td>01-07 fév</td>
+                                <td>4</td>
+                                <td><span class="highlight">20%</span></td>
+                                <td>🔴 GHOST</td>
+                                <td>Bottom</td>
+                            </tr>
+                            <tr style="background: #ffebee;">
+                                <td><strong>S05</strong></td>
+                                <td>08-14 fév</td>
+                                <td>1</td>
+                                <td><span class="highlight">0%</span></td>
+                                <td>🔴 GHOST</td>
+                                <td>Lowest week</td>
+                            </tr>
+                            <tr style="background: #e0f2f1;">
+                                <td><strong>S06</strong></td>
+                                <td>15-21 fév</td>
+                                <td>12</td>
+                                <td><span class="highlight">60%</span></td>
+                                <td>🟢 ENGAGEMENT</td>
+                                <td>PIVOT: Goal adjust 40k→variable</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S07</strong></td>
+                                <td>22-28 fév</td>
+                                <td>3</td>
+                                <td><span class="highlight">20%</span></td>
+                                <td>🔴 GHOST</td>
+                                <td>Charged period</td>
+                            </tr>
+                            <tr>
+                                <td><strong>S08</strong></td>
+                                <td>01-07 mar</td>
+                                <td>3</td>
+                                <td><span class="highlight">60%</span></td>
+                                <td>🟢 ENGAGEMENT</td>
+                                <td>Pilates, yoga, marche</td>
+                            </tr>
+                            <tr style="background: #e8f5e9;">
+                                <td><strong>S09</strong></td>
+                                <td>08-14 mar</td>
+                                <td>3</td>
+                                <td><span class="highlight">60%</span></td>
+                                <td>🟢 ENGAGEMENT</td>
+                                <td>Marche, training, yoga</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 style="margin-top: 30px;">🔄 Phases Identifiées</h2>
+
+                <div class="insight-box">
+                    <h4>Phase 1: Initial Excitement (S01-S02)</h4>
+                    <p>
+                        Escaliers = breakthrough. Vittoria! Enthousiasme initial. 80% peak avec "J'ai pris les marches!!!"
+                        Dip normal à S02 après high.
+                    </p>
+                </div>
+
+                <div class="insight-box">
+                    <h4>Phase 2: Reality Check & Burnout (S03-S05)</h4>
+                    <p>
+                        Silence S03, bottom S04-S05. Charge lourde année, objectif 40k irréaliste. "I admit it, ça pas été ma meilleure semaine."
+                        C'est ici que tu as découvert l'importance de l'ajustement.
+                    </p>
+                </div>
+
+                <div class="insight-box">
+                    <h4>Phase 3: Smart Pivot & Comeback (S06-S09)</h4>
+                    <p>
+                        40k → 25-31.5k VARIABLE. Change de game. S06 = 12 entries (highest frequency), 60% engagement.
+                        Marche midi avec collègues = energy + social. Escaliers = automatique (zéro ascenseur).
+                        S07 dip (charge) mais S08-S09 recovery à 60% stable = NEW NORMAL SUSTAINABLE.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: PIVOT -->
+        <div id="pivot" class="tab-content">
+            <div class="card">
+                <h2>🔄 Le Pivot Crucial: Réalisme = Succès</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px; line-height: 1.6;">
+                    S05 était ton moment de rock bottom (0%). Mais c'est aussi quand tu as fait la réalisation la plus importante:
+                </p>
+
+                <div class="insight-box">
+                    <h4>Le Changement Décisif (S06)</h4>
+                    <p>
+                        <strong>"Mon objectif de pas sera maintenant variable entre 25 000 et 31 500 pas par semaine."</strong><br/>
+                        Tu as changé de 40k (impossible) à variable (réaliste). Cela a transformé TOUT.
+                    </p>
+                </div>
+
+                <h2 style="margin-top: 30px;">📊 Avant vs Après le Pivot</h2>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div style="background: #ffebee; padding: 15px; border-radius: 6px; border-left: 4px solid #d32f2f;">
+                        <h4 style="color: #d32f2f; margin-bottom: 10px;">❌ AVANT (S01-S05)</h4>
+                        <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                            <li>Objectif: 40k pas/sem fixe</li>
+                            <li>Résultat: Burnout, 0% S05</li>
+                            <li>Mindset: All-or-nothing</li>
+                            <li>Impact: Quit/abandon cycle</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 6px; border-left: 4px solid #2e7d32;">
+                        <h4 style="color: #2e7d32; margin-bottom: 10px;">✅ APRÈS (S06+)</h4>
+                        <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                            <li>Objectif: 25-31.5k variable</li>
+                            <li>Résultat: 60% consistent S06-S09</li>
+                            <li>Mindset: Flexible & realistic</li>
+                            <li>Impact: Sustainable engagement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 30px;">🎯 Déclencheurs Identifiés</h2>
+
+                <h3 style="color: #333; margin: 15px 0 10px; font-size: 14px;">Récession:</h3>
+                <ul style="color: #666; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                    <li><strong>Unrealistic load:</strong> 40k pas impossible en période chargée</li>
+                    <li><strong>SPM cycle:</strong> Motivation craters certaines semaines</li>
+                    <li><strong>Work pressure:</strong> Fév-mars = ton busiest period of year</li>
+                    <li><strong>All-or-nothing thinking:</strong> Si can't do 40k, do 0</li>
+                </ul>
+
+                <h3 style="color: #333; margin: 15px 0 10px; font-size: 14px;">Expansion:</h3>
+                <ul style="color: #666; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                    <li><strong>Escaliers = automatic:</strong> Zéro ascenseur depuis S06. No willpower needed.</li>
+                    <li><strong>Marche midi + colleagues:</strong> 15min = energy booster + social. Répétable.</li>
+                    <li><strong>Flexible goals:</strong> Variable range = psychologically relieving</li>
+                    <li><strong>Short workouts:</strong> 20min training/yoga = achievable daily</li>
+                    <li><strong>Self-awareness:</strong> Tu as reconnu le burnout et changé la formule</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB: COACHING -->
+        <div id="coaching" class="tab-content">
+            <div class="card">
+                <h2>💡 Plan Coaching Recommandé S10</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px; line-height: 1.6;">
+                    <strong>Charge:</strong> 2 objectifs/jour (Honorer charge mars-april, flexible goals)<br/>
+                    <strong>Priorité:</strong> Maintenir escaliers + marche midi + flexible pas goal<br/>
+                    <strong>Focus:</strong> Escaliers + marche midi + training/yoga 3x/sem
+                </p>
+
+                <div style="background: #fff3e0; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #4ECDC4;">
+                    <h3 style="color: #00695c; margin-bottom: 10px;">⚠️ Points d'Attention S10</h3>
+                    <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                        <li><strong>Mars-avril = peak charge:</strong> Tu l'as identifié toi-même. Protéger énergie.</li>
+                        <li><strong>SPM cycle:</strong> "Je suis en SPM et ma motivation n'est pas la" (S08). Plan pour ça.</li>
+                        <li><strong>Journaling inconsistency:</strong> "I didn't get the email" = gaps. Consistency aide tracking.</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: #333; margin: 20px 0 15px; font-size: 16px;">📋 Objectifs S10 Recommandés (Lun-Ven)</h3>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Quotidien (Baseline - Non-Negotiable)</h4>
+                    <ol style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                        <li><strong>Escaliers:</strong> Zéro ascenseur au bureau (tu le fais déjà depuis S06!)</li>
+                        <li><strong>Marche midi:</strong> 1 marche/3 jours minimum (solo OU avec collègues)</li>
+                        <li><strong>Pas cibles:</strong> 25,000-31,500/sem variable (honore ta charge réelle)</li>
+                    </ol>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+                    <h4 style="color: #333; margin-bottom: 10px;">Par Semaine</h4>
+                    <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 13px;">
+                        <li><strong>Training musculaire:</strong> 1-2x/sem (20-25 min acceptable)</li>
+                        <li><strong>Yoga/stretching:</strong> 1-2x/sem (20 min + bien-être)</li>
+                        <li><strong>Marche solo:</strong> 1x/sem si possible (30-45 min weekend?)</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e8f5e9; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #4caf50;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">🌟 SPM Week Strategy</h4>
+                    <p style="color: #333; font-size: 13px; line-height: 1.6;">
+                        Quand "Je suis en SPM": 1) Yoga/stretching over training. 2) Marche midi non-negotiable (energy boost).
+                        3) Reduce pas goal by 10% that week if needed. 4) Extra compassion with self.
+                    </p>
+                </div>
+
+                <h2 style="margin-top: 30px;">🔑 Clés de Succès pour Toi</h2>
+                <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); border-left: 4px solid #4ECDC4; padding: 15px; border-radius: 6px;">
+                    <p style="color: #333; margin: 10px 0; line-height: 1.6; font-size: 13px;">
+                        ✅ <strong>Escaliers = tu l'as mastered.</strong> Keep zero ascenseur. No willpower needed.<br/>
+                        ✅ <strong>Variable goal = ta salvation.</strong> 25-31.5k flexible honore reality.<br/>
+                        ✅ <strong>Marche midi = energy hack.</strong> 15min with colleague = best ROI.<br/>
+                        ✅ <strong>SPM awareness = mature.</strong> Yoga instead training on that week = smart.<br/>
+                        ✅ <strong>Realistic > perfect.</strong> 60% sustainable beats 80% burnout every time.<br/>
+                    </p>
+                </div>
+
+                <h2 style="margin-top: 30px;">📌 Messages Clés</h2>
+                <p style="color: #333; line-height: 1.8; font-size: 13px; margin: 15px 0;">
+                    <strong>1. Ton pivot S06 était GAME-CHANGING.</strong> Changing 40k to variable saved everything.
+                    That realism is your superpower now.
+                </p>
+                <p style="color: #333; line-height: 1.8; font-size: 13px; margin: 15px 0;">
+                    <strong>2. Escaliers are YOUR win.</strong> Zero ascenseur for 9+ weeks? That's automatic.
+                    That's mastery. Protect it.
+                </p>
+                <p style="color: #333; line-height: 1.8; font-size: 13px; margin: 15px 0;">
+                    <strong>3. March-April is acknowledged.</strong> You know your charge period.
+                    Plan accordingly with variable goals + SPM strategy = you got this.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Coaching Personnalisé — S10 (15-21 mars 2026)</strong></p>
+            <p>Espace sécurisé | Accès personnalisé | Mises à jour hebdomadaires</p>
+            <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px;">
+                Ton parcours S01-S09 montre une athlète qui a appris à respecter ses limites réelles.
+                S10 est l'occasion de maintenir ce momentum durable.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Authentication check
+        function checkAuth() {
+            const token = sessionStorage.getItem('coachToken');
+            const participant = sessionStorage.getItem('coachParticipant');
+
+            if (!token || !participant || participant !== 'alex') {
+                window.location.href = './index.html';
+            }
+        }
+
+        function logout() {
+            if (confirm('Êtes-vous certain de vouloir quitter votre espace coaching?')) {
+                sessionStorage.clear();
+                window.location.href = './index.html';
+            }
+        }
+
+        function switchTab(tabName, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // Check authentication on page load
+        checkAuth();
+    </script>
+</body>
+</html>
