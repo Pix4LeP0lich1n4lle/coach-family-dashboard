@@ -916,7 +916,7 @@
 
         // Validate token on page load
         window.addEventListener('load', function() {
-            const storedToken = sessionStorage.getItem('participant_token');
+            const storedToken = sessionStorage.getItem('coachToken');
             const expectedToken = 'chantal_coach_secret_h7j2l8v';
 
             if (storedToken !== expectedToken) {
