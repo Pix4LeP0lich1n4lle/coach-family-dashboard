@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Coaching - Danielle Delorey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            background: white;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background: #f8f9fa;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 600px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f4ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .key-insight {
+            font-style: italic;
+            color: #667eea;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 25px;
+            width: 2px;
+            height: calc(100% + 15px);
+            background: #e0e0e0;
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .timeline-quote {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .card-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-success {
+            background: #4caf50;
+        }
+
+        .badge-warning {
+            background: #ff9800;
+        }
+
+        .pattern-evolution {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .evolution-stage {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .evolution-stage:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .stage-name {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .stage-detail {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .ritual-anchor {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .ritual-anchor-title {
+            font-weight: 700;
+            color: #ff9800;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .objectives-grid {
+            display: grid;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .objective-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .objective-day {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .objective-list {
+            list-style: none;
+        }
+
+        .objective-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .objective-list li:before {
+            content: '→ ';
+            color: #667eea;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .quote-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .tab {
+                min-width: 120px;
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🧘‍♀️ Danielle Delorey</h1>
+            <p>Espace Coaching Personnel — S01 à S10</p>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">80%</div>
+                <div class="stat-label">Taux de Succès S09-S10</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">🟢</div>
+                <div class="stat-label">Engagement: Solide</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">36</div>
+                <div class="stat-label">Entrées Journelles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">S01-S10</div>
+                <div class="stat-label">Progression Suivie</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab(event, 'vue-ensemble')">Vue d'Ensemble</div>
+            <div class="tab" onclick="switchTab(event, 'progression')">Progression S01-S10</div>
+            <div class="tab" onclick="switchTab(event, 'rituels')">Rituels d'Ancrage</div>
+            <div class="tab" onclick="switchTab(event, 'plan-s10')">Plan S10</div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- TAB 1: VUE D'ENSEMBLE -->
+            <div id="vue-ensemble" class="tab-content active">
+                <div class="section">
+                    <div class="section-title">👤 Qui Es-Tu, Danielle?</div>
+                    <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 20px;">
+                        <strong>Danielle Delorey.</strong> Tu es une femme qui vit dans le mouvement: travail, entraînement (gym), tutorat, responsabilités.
+                        Mais ton système nerveux te signal régulièrement: <em>"Je suis raquée. Je suis overstimulée."</em>
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 20px;">
+                        <strong>Ton archétype:</strong> <span class="badge badge-success">La Maîtresse du Calme</span>
+                        Tu as appris à construire des rituels simples qui te ramènent à l'équilibre.
+                        Pas de grandes thérapies. Pas de spiritualité imposée. Juste: des ancres.
+                        Un lit fait le matin. Un changement de vêtements. Une respiration 4-4-8. Une méditation de 10 min.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🎯 Ce Qui T'Ancre (Les 3 Piliers)</div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-title">🛏️ Le Lit Fait</div>
+                            <div class="card-content">
+                                "J'ai fait mon lit le matin pour justement faciliter la transition."
+                                Ce geste simple = permission de faire une méditation sans culpabilité.
+                                Structure → relaxation.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">👕 Changer de Vêtements</div>
+                            <div class="card-content">
+                                Tu as découvert cet ancrage somatique: dès arrivée à la maison, tu changes.
+                                C'est un signal à ton corps: "OK, tu peux relâcher. T'es chez toi."
+                                Somatique = puissant pour réguler le système nerveux.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🧘 La Méditation de 10 Min</div>
+                            <div class="card-content">
+                                Pas 45 min. Pas une session yoga intense. 10 min. Méditation guidée sur YouTube.
+                                C'est "bite-sized" — tu peux le faire même quand tu es raquée.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🎵 La Musique Apaisante</div>
+                            <div class="card-content">
+                                Au début: silence complet. Puis: musique à faible volume. Puis: musique douce "sans parole."
+                                Tu expérimentes. Tu affines. Tu écoutes ton système nerveux.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⭐ Ce qu'On Voit Chez Toi</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.9; color: #555;">
+                            <strong>🔍 Introspection honnête:</strong> Tu dis "Je suis raquée", "sentiment d'être overstimulée", "grosse journée".
+                            Pas de déni. Tu nommes. Tu agis.<br/><br/>
+
+                            <strong>🔄 Expérimentation itérative:</strong> Silence → musique douce → respiration 4-4-8.
+                            Tu testes. Tu notes. Tu affines. "Je crois que la prochaine fois, je vais plutôt mettre de la musique calme."<br/><br/>
+
+                            <strong>📱 Conscience digitale:</strong> "Depuis longtemps mon cell n'est plus dans ma chambre quand je dors."
+                            Mais plus que ça: samedi matin, tu délibérément attends 2h30 avant de toucher ton cell.
+                            C'est du détox conscient.<br/><br/>
+
+                            <strong>⏰ Micro-pratiques plutôt que "big changes":</strong> 10 min méditation. 14 min marche. 5 min respiration.
+                            Tu sais ce qui marche pour ton rythme. Tu n'as pas honte d'être modeste.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 Les Chiffres</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.8; color: #555;">
+                            <strong>S01-S05:</strong> 8 entrées. Signal faible, incertitude.<br/><br/>
+                            <strong>S06-S08:</strong> 16 entrées. Découverte des rituels. "Changement de vêtements + méditation."<br/><br/>
+                            <strong>S09 (maladie + relâche pédago):</strong> 4 entrées. Pause mais pas abandon.<br/><br/>
+                            <strong>S10 (retour au travail):</strong> 8 entrées en 5 jours. Accélération. Routine bien rôdée.<br/><br/>
+                            <strong>Taux de Succès S10:</strong> 80% (4 jours objectifs + samedi bonus sur 5 base)<br/><br/>
+                            <strong>Signal émotionnel S10:</strong> "Ca fait tjrs beaucoup de bien" (11 mars)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🌟 La Victoire Majeure (Samedi 7 Mars)</div>
+                    <div class="quote-box">
+                        "Samedi 7 mars: je sais que c'est jour de congé normalement, mais j'ai eu une petite victoire ce matin.
+                        Depuis longtemps mon cell n'est plus dans ma chambre quand je dors, mais ce matin,
+                        j'ai pris mon cell 2h30 après mon réveil. À la place j'ai lu vrm longtemps et j'ai écouté une émission relax en déjeunant!
+                        Alors happy de mon petit moment relax sans cell pour commencer mon week-end."
+                    </div>
+                    <p style="font-size: 15px; line-height: 1.8; color: #555; margin-top: 20px;">
+                        C'est ça, la vraie victoire. Pas de grosse décision. Juste: tu t'es autorisée à délaisser le cell et à faire quelque chose de simple (lire, écouter).
+                        Et tu l'as documentée. Avec joie.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TAB 2: PROGRESSION S01-S10 -->
+            <div id="progression" class="tab-content">
+                <div class="section">
+                    <div class="section-title">📈 Timeline: De l'Incertitude à la Routine Ancrée</div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">12-21 Janvier 2026 — S01-S03</div>
+                                <div class="timeline-quote">
+                                    "J'ai niaisé sur mon cell au début mais après j'ai mis une vidéo de relaxation and i did it"
+                                    <br/><br/>
+                                    (Ces premières entrées: incertitude, procrastination, puis action. Signal faible.)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">5 Février 2026 — S06 (LA SEMAINE CLEF)</div>
+                                <div class="timeline-quote">
+                                    "Lundi 2 fev!!! J'ai fait mon lit le matin pour justement faire ma relaxation en arrivant, facilite la transition"
+                                    <br/><br/>
+                                    "Fait dans mon auto entre le travail et le gym"
+                                    <br/><br/>
+                                    "J'ai écouté une video mais j'ai mis à jour mon journal avant de la faire"
+                                    <br/><br/>
+                                    <strong style="color: #ff9800;">← Découverte du rituel: Lit + changer + méditation = routine ancrée</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">10-13 Février 2026 — S06</div>
+                                <div class="timeline-quote">
+                                    "Lundi 9 fev" / "10 fev" / "11fev" — entrées courtes mais consistantes. La routine prend shape.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">16-20 Février 2026 — S07</div>
+                                <div class="timeline-quote">
+                                    "16 fev : je me suis changée de vêtements et fait une méditation guidée de 10 mins dès mon arrivée."
+                                    <br/><br/>
+                                    "Mardi 17 fev: gym — respiration d'après gym pour relaxer et étirements relaxants. Retour vers la maison avec musique douce!!"
+                                    <br/><br/>
+                                    "18 fev: j'ai eu une grosse journée donc je suis contente de l'avoir fait"
+                                    <br/><br/>
+                                    <strong style="color: #ff9800;">← Musique douce découverte. Respiration post-gym. Auto-reconnaissance.</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">22-27 Février 2026 — S08</div>
+                                <div class="timeline-quote">
+                                    "La maladie s'est emparée de moi, donc j'ai pas fait de respiration en tant que tel... mais j'ai vrm pris le temps de relaxer"
+                                    <br/><br/>
+                                    "25 fev: j'étais en silence total... la prochaine fois, je vais plutôt mettre de la musique calme à son faible"
+                                    <br/><br/>
+                                    "Voiture en silence et changer de vêtements dès l'arrivée" + "pas l'utiliser le cell ds ma chambre"
+                                    <br/><br/>
+                                    <strong style="color: #ff9800;">← Itération: silence → musique douce. Cell = hors chambre. Expérimentation.</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2-7 Mars 2026 — S09 (RELÂCHE + SAMEDI VICTORY)</div>
+                                <div class="timeline-quote">
+                                    "Lundi 2 mars: j'ai été longtemps sur mon cell, demain will be better! Quand j'ai fini par m'activer j'ai moins utilisé mes réseaux."
+                                    <br/><br/>
+                                    "3 mars: méditation guidée 'energy cleansing'"
+                                    <br/><br/>
+                                    <strong style="color: #ff9800;">✨ Samedi 7 mars: "J'ai pris mon cell 2h30 après mon réveil. À la place j'ai lu et écouté une émission relax. Alors happy de mon petit moment!"</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">9-12 Mars 2026 — S10 (RETOUR AU TRAVAIL + ROUTINE SOLIDE)</div>
+                                <div class="timeline-quote">
+                                    "Lundi 9 mars: retour après relâche → gym ce midi, méditation de 12 mins"
+                                    <br/><br/>
+                                    "Mardi 10 mars: grosse journée/sentiment d'être overstimulée/ j'ai été m'entraîner malgré la fatigue. Retour en voiture avec musique apaisante. Je prévois faire une courte méditation avant de dormir"
+                                    <br/><br/>
+                                    "11 mars: méditation de 10 mins + étirements. Ca fait tjrs beaucoup de bien."
+                                    <br/><br/>
+                                    "12 mars: méditation de 10 mins après le travail"
+                                    <br/><br/>
+                                    <strong style="color: #ff9800;">← Routine complètement ancrée. Overstimulation nommée et gérée. Consistency forte.</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🔄 Évolution des États d'Engagement</div>
+                    <div class="pattern-evolution">
+                        <div class="evolution-stage">
+                            <div class="stage-name">S01-S05: Exploration Hésitante</div>
+                            <div class="stage-detail">
+                                8 entrées en 5 semaines. "J'ai niaisé sur mon cell... after j'ai mis une vidéo."
+                                Procrastination classique. Signal faible. Pas encore ancré.
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S06-S07: Découverte des Rituels</div>
+                            <div class="stage-detail">
+                                10 entrées en 2 semaines. Moment-clef: "J'ai fait mon lit pour faciliter la transition."
+                                Lit + Changement de vêtements + Méditation 10 min deviennent la routine de base.
+                                Musique douce introduite. Signal montant.
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S08: Itération & Affinage</div>
+                            <div class="stage-detail">
+                                Maladie et expérimentation. Silence → Musique douce. Tu affines ce qui marche.
+                                "La prochaine fois, je vais plutôt mettre de la musique calme."
+                                Conscience somatique croissante.
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S09: Pause Planifiée + Victory</div>
+                            <div class="stage-detail">
+                                Relâche pédago = pause. Mais samedi matin, tu te donnes une victoire:
+                                2h30 sans cell = détox consciente. Joie simple.
+                                Signal: les rituels t'ont tellement ancrée qu'une pause est possible (pas panique).
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S10: Routine Solide + Gestion de l'Overstimulation</div>
+                            <div class="stage-detail">
+                                Retour au travail. "Je suis overstimulée" — mais tu agis: gym, musique apaisante, respiration, méditation.
+                                Tu as les outils. Tu les utilises. "Ca fait tjrs beaucoup de bien."
+                                Taux succès: 80%. Engagement: solide.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: RITUELS D'ANCRAGE -->
+            <div id="rituels" class="tab-content">
+                <div class="section">
+                    <div class="section-title">🛏️ Les 4 Rituels Qui Te Sauvent</div>
+                    <p style="font-size: 15px; line-height: 1.8; color: #555; margin-bottom: 30px;">
+                        Tu n'as pas besoin de spiritualité imposée, de régimes restrictifs, ou de discipline de fer.
+                        Tu as juste besoin de <strong>petits gestes répétés</strong> qui signalent à ton système nerveux: "Tu peux relâcher."
+                        <br/><br/>
+                        Voici les 4.
+                    </p>
+
+                    <div class="ritual-anchor">
+                        <div class="ritual-anchor-title">1️⃣ Faire son lit le matin</div>
+                        <p style="font-size: 14px; line-height: 1.7; color: #555;">
+                            <strong>Quand:</strong> Dès le réveil<br/>
+                            <strong>Pourquoi ça marche:</strong> C'est un geste de structure. Tu dis à ton corps "OK, on commençe la journée organisée."
+                            Une chambre propre = un cerveau moins chaotique.<br/>
+                            <strong>Ce que ça enabled:</strong> "J'ai fait mon lit pour justement faciliter la transition" → permet de faire méditation sans culpabilité.
+                        </p>
+                    </div>
+
+                    <div class="ritual-anchor">
+                        <div class="ritual-anchor-title">2️⃣ Changer de vêtements dès arrivée à la maison</div>
+                        <p style="font-size: 14px; line-height: 1.7; color: #555;">
+                            <strong>Quand:</strong> Immédiatement en arrivant du travail/gym<br/>
+                            <strong>Pourquoi ça marche:</strong> C'est une anchre somatique. Vêtements "travail" = mode ON.
+                            Vêtements "maison" = permission de relâcher. Ton corps le sait.<br/>
+                            <strong>Signal:</strong> "Je me suis changée et fait une méditation guidée dès mon arrivée" = le changement déclenche l'autorisationà méditer.
+                        </p>
+                    </div>
+
+                    <div class="ritual-anchor">
+                        <div class="ritual-anchor-title">3️⃣ Méditation guidée 10 minutes</div>
+                        <p style="font-size: 14px; line-height: 1.7; color: #555;">
+                            <strong>Quand:</strong> Après arrivée (idéalement), ou après gym, ou avant coucher<br/>
+                            <strong>Format:</strong> YouTube, vidéo guidée (pas silence intimidant)<br/>
+                            <strong>Pourquoi ça marche:</strong> 10 min = bite-sized. Pas intimidant.
+                            Guidée = quelqu'un d'autre te dit quoi faire (réduit la friction).<br/>
+                            <strong>Variations testées:</strong> "energy cleansing", respiration 4-4-8, simple relaxation. Tout marche.
+                        </p>
+                    </div>
+
+                    <div class="ritual-anchor">
+                        <div class="ritual-anchor-title">4️⃣ Musique apaisante sans parole</div>
+                        <p style="font-size: 14px; line-height: 1.7; color: #555;">
+                            <strong>Quand:</strong> Trajet retour, transitions, matin sans rush<br/>
+                            <strong>Durée:</strong> Variable: 14 min (marche), 5 min (respiration post-gym), tout le trajet<br/>
+                            <strong>Évolution:</strong> D'abord silence → "musique calme à son faible volume" → "sans parole"<br/>
+                            <strong>Impact:</strong> "Retour en voiture avec musique apaisante + grandes respirations. Je prévois faire une courte méditation avant de dormir."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🔄 Comment Les 4 S'Entrelacent</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.9; color: #555;">
+                            <strong>Matin:</strong><br/>
+                            Lit fait (structure) → peut-être quelques min de musique apaisante en déjeunant<br/><br/>
+
+                            <strong>Pendant le travail/école:</strong><br/>
+                            Tu penses: "Ce soir j'ai mon rituel qui m'attend"<br/><br/>
+
+                            <strong>Retour à la maison:</strong><br/>
+                            Arrivée → change vêtements (signal somatique) → méditation guidée 10 min (régulation)<br/>
+                            OR si vraiment chaotique: musique en voiture (déjà du parasympathique)<br/><br/>
+
+                            <strong>Avant coucher:</strong><br/>
+                            Méditation courte (5-10 min) OU musique apaisante (pas cell)<br/><br/>
+
+                            <strong>Samedi/Dimanche:</strong><br/>
+                            Même lit le matin. Méditation ou marche ou yoga doux.
+                            Détox cell consciente (2h sans, comme samedi 7 mars).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">💡 L'Insight Clef: "Je Suis Raquée" = Signal, Pas Échec</div>
+                    <div class="quote-box">
+                        "Mardi 10 mars: grosse journée / sentiment d'être overstimulée / j'ai été m'entraîner après le travail malgré la fatigue.
+                        Retour en voiture avec musique apaisante sans parole et j'ai pris de grandes respirations."
+                    </div>
+                    <p style="font-size: 15px; line-height: 1.8; color: #555; margin-top: 20px;">
+                        Ce moment est presque une masterclass.
+                        Tu reconnais: "Je suis overstimulée."
+                        Puis: tu fais gym quand même (self-care, pas punishment).
+                        Puis: tu te donnes musique + respiration (régulation active).
+                        Puis: tu planifies méditation avant coucher (prévention).
+                        <br/><br/>
+                        Tu as les outils. Tu les utilises. Tu as faith en le système.
+                        C'est ça, la maîtrise du calme.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TAB 4: PLAN S10 -->
+            <div id="plan-s10" class="tab-content">
+                <div class="section">
+                    <div class="section-title">🎯 Recommandations S10 (8-14 Mars)</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; font-weight: 600; color: #667eea; margin-bottom: 15px;">
+                            Charge: 2 Objectifs/Jour (Taux Succès 80%)
+                        </p>
+                        <p style="font-size: 14px; line-height: 1.7; color: #555;">
+                            Pourquoi 2? Tu es en ENGAGEMENT solide (80%), pas FEU. Tes rituels fonctionnent bien.
+                            2 objectifs = maintenir le rythme sans épuisement supplémentaire pendant que tu réintègres le travail post-relâche.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📅 Objectifs Proposés par Jour</div>
+                    <div class="objectives-grid">
+                        <div class="objective-item">
+                            <div class="objective-day">Lundi 09 Mars</div>
+                            <ul class="objective-list">
+                                <li>Faire lit le matin (ritual 1)</li>
+                                <li>Méditation 10 min après travail + étirements légers</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Mardi 10 Mars</div>
+                            <ul class="objective-list">
+                                <li>Gym (cardio/renforcement)</li>
+                                <li>Musique apaisante retour + respiration 4-4-8 (gestion overstimulation)</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Mercredi 11 Mars</div>
+                            <ul class="objective-list">
+                                <li>Lit fait + changement vêtements dès arrivée</li>
+                                <li>Méditation guidée 10 min (peu importe version: energy cleansing, respiration, simple relax)</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Jeudi 12 Mars</div>
+                            <ul class="objective-list">
+                                <li>Méditation 10-15 min + étirements (parce que tu es raquée, régulation actuelle)</li>
+                                <li>Marche douce (si pas trop glissant) ou yoga léger</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Vendredi 13 Mars</div>
+                            <ul class="objective-list">
+                                <li>Tisane + marche (retro vendredi 6 mars: "tisane et longue marche")</li>
+                                <li>Pas forcer si fatigué; repos = aussi valide</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Samedi 14 Mars (Bonus)</div>
+                            <ul class="objective-list">
+                                <li>Lit fait + petit moment sans cell le matin (like victoire samedi 7 mars)</li>
+                                <li>Activité relax: marche, yoga doux, ou juste musique apaisante</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">💡 Principes Coaching</div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-title">1️⃣ Les 4 Rituels = Non-Négociables</div>
+                            <div class="card-content">
+                                Lit fait, changement vêtements, méditation 10 min, musique apaisante.
+                                Pas tous les jours, mais présent dans la semaine.
+                                C'est ton système de régulation.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">2️⃣ "Je Suis Raquée" = Agir, Pas Abandonner</div>
+                            <div class="card-content">
+                                Overstimulation nommée = besoin de plus de régulation, pas moins.
+                                Gym + Musique + Respiration = ce qui marche.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">3️⃣ Cell = Détox Consciente</div>
+                            <div class="card-content">
+                                Il dort pas dans la chambre. Tu as déjà réussi.
+                                S10: essaye 1 samedi matin où tu attends 2h avant de le prendre.
+                                Joie simple = victoire (comme 7 mars).
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">4️⃣ Méditation = Pas Une Obligation</div>
+                            <div class="card-content">
+                                Si vraiment trop fatigue, 5 min c'est OK. Silence c'est OK.
+                                Musique apaisante seule = déjà régulation.
+                                Le but: calme, pas perfection.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📌 Ce Qu'On Attend de Toi</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.9; color: #555;">
+                            <strong>✓ Fais tes 2 objectifs par jour:</strong> Si c'est trop un jour, l'autre jour c'est OK.<br/>
+                            <strong>✓ Note 1 seule chose:</strong> Lit fait ✓ / Méditation ✓ / Overstimulation gérée ✓<br/>
+                            <strong>✓ Explore la marche:</strong> Tu l'as pas eu beaucoup récemment. "Tisane et longue marche" semble marcher pour toi.<br/>
+                            <strong>✓ Samedi morning detox:</strong> Essaye 1 jour où le cell attend 2h après réveil.<br/>
+                            <strong>✓ Célèbre les moments calmes:</strong> Comme tu l'as fait samedi 7 mars. "Feeling good" → c'est DATA qu'on utilise S11.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🌟 Message Final</div>
+                    <div class="quote-box">
+                        Danielle, tu as construit quelque chose de rare.
+                        Pas une discipline de fer. Pas une spiritualité imposée.
+                        Juste: petits gestes qui te ramènent à toi-même.
+                        <br/><br/>
+                        Un lit fait.
+                        Des vêtements changés.
+                        10 minutes de silence guidé.
+                        Musique sans mots.
+                        <br/><br/>
+                        Quand tu es raquée, tu sais quoi faire. Tu le fais.
+                        Et tu célèbres les petites victoires.
+                        "Happy de mon petit moment relax."
+                        <br/><br/>
+                        C'est ça, la maîtrise du calme.
+                        À S11, on parle de consolidation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Coaching Personnalisé — S10 (8-14 Mars 2026)</strong></p>
+            <p>Espace Sécurisé | Analyse Individualisée | Suivi Hebdomadaire</p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            // Hide all tabs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab and mark tab as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Validate token on page load
+        window.addEventListener('load', function() {
+            const storedToken = sessionStorage.getItem('participant_token');
+            const expectedToken = 'danielle_coach_secret_z6c4m1x';
+
+            if (storedToken !== expectedToken) {
+                window.location.href = '../index.html';
+            }
+        });
+    </script>
+</body>
+</html>
