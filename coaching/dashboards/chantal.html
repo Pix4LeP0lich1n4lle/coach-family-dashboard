@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Coaching - Chantal Felteau</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            background: white;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background: #f8f9fa;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 600px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f4ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .key-insight {
+            font-style: italic;
+            color: #667eea;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 25px;
+            width: 2px;
+            height: calc(100% + 15px);
+            background: #e0e0e0;
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .timeline-quote {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .card-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-success {
+            background: #4caf50;
+        }
+
+        .badge-warning {
+            background: #ff9800;
+        }
+
+        .pattern-evolution {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .evolution-stage {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .evolution-stage:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .stage-name {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .stage-detail {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .objectives-grid {
+            display: grid;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .objective-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .objective-day {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .objective-list {
+            list-style: none;
+        }
+
+        .objective-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .objective-list li:before {
+            content: '→ ';
+            color: #667eea;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .engagement-badge {
+            display: inline-block;
+            font-size: 32px;
+            margin-right: 10px;
+        }
+
+        .quote-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .tab {
+                min-width: 120px;
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🧘 Chantal Felteau</h1>
+            <p>Espace Coaching Personnel — S02 à S10</p>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">60%</div>
+                <div class="stat-label">Taux de Succès S09-S10</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">🟢</div>
+                <div class="stat-label">Engagement: Montée</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">14</div>
+                <div class="stat-label">Entrées Journelles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">S02-S10</div>
+                <div class="stat-label">Progression Suivie</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab(event, 'vue-ensemble')">Vue d'Ensemble</div>
+            <div class="tab" onclick="switchTab(event, 'progression')">Progression S02-S10</div>
+            <div class="tab" onclick="switchTab(event, 'catalyseur')">Le Catalyseur (Tai Chi)</div>
+            <div class="tab" onclick="switchTab(event, 'plan-s10')">Plan S10</div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- TAB 1: VUE D'ENSEMBLE -->
+            <div id="vue-ensemble" class="tab-content active">
+                <div class="section">
+                    <div class="section-title">👤 Qui Es-Tu, Chantal?</div>
+                    <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 20px;">
+                        <strong>Chantal Felteau, 56 ans.</strong> Chiropraticienne avec une clinique bien remplie — saturée, même.
+                        Ta vie est orchestrée comme une opération d'efficacité: pas de temps mort, chaque moment compte.
+                        Tu manges en étudiant les radiographies, tu fais des squats en positionnant tes patients, tu actives tes jambes
+                        entre chaque consultation.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 20px;">
+                        <strong>Ton archétype:</strong> <span class="badge badge-success">La Pragmatique Invisible</span>
+                        Tu n'es pas celle qui crie ses victoires. Tu les intègres dans la texture de ton quotidien.
+                        Squats? Pas un "objectif", mais un geste naturel entre deux patients.
+                        Escaliers? Un cardio caché, automatisé.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🎯 Le Moment Pivot (1er Mars 2026)</div>
+                    <div class="highlight-box">
+                        <div class="key-insight">📱 Inscription Tai Chi en ligne: 4 semaines programmées</div>
+                        <p style="margin-top: 12px; font-size: 15px; line-height: 1.7; color: #555;">
+                            C'est un geste petit mais intentionnel. Pas une grosse décision, pas un changement radical.
+                            Juste... <em>"Je suis inscrite à une application Tai Chi pour 4 semaines."</em>
+                            <br/><br/>
+                            Et ensuite tu ajoutes: <em>"J'ai fait un 13 minutes de yoga aujourd'hui. J'ai pratiqué 5 minutes de méditation profonde."</em>
+                            <br/><br/>
+                            C'est ça, le pivot. Pas un cri du cœur. Une décision tranquille. Pragmatique.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⭐ Ce qu'On Voit Chez Toi</div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-title">💪 Micro-Mouvements = Système</div>
+                            <div class="card-content">
+                                Tu as trouvé comment rester active dans une vie saturée: tu intègres l'exercice dans tes gestes
+                                cliniques. "25 squats mardi 03 mars" — comptabilisés inconsciemment en positionnant tes patients.
+                                C'est du génie pragmatique.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🧠 Clarté Mentale = Signal</div>
+                            <div class="card-content">
+                                "Bon sommeil et clarté mentale, on continue!"
+                                Tu remarques quand ça va bien, et tu l'utilises pour décider de continuer.
+                                Pas d'auto-doute, pas de dramatisation. Juste: si ça marche, on persévère.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🏗️ Structure Alimentaire</div>
+                            <div class="card-content">
+                                "Je recommence mon plan alimentaire ayant trouvé les aliments bénéfiques."
+                                Tu ne fais pas de régimes à la mode. Tu étudies ce qui te convient et tu l'intègres.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">⚖️ Équilibre = Priorité</div>
+                            <div class="card-content">
+                                "Repos aussi." — Tu savais que sans ça, tout casse.
+                                Chantal ne s'épuise pas. Elle se prend soin intelligemment.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 Les Chiffres</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.8; color: #555;">
+                            <strong>S02-S08:</strong> 2 entrées en 7 semaines. Silence. (C'était avant le pivot Tai Chi.)<br/><br/>
+                            <strong>S09-S10:</strong> 12 entrées en 2 semaines. Accélération remarquée.<br/><br/>
+                            <strong>Engagement:</strong> De GHOST à ENGAGEMENT en une décision (Tai Chi).<br/><br/>
+                            <strong>Taux de Succès (S09-S10):</strong> 60% — 3 jours objectifs sur 5, avec bonus samedi.<br/><br/>
+                            <strong>Récent:</strong> "Je suis toujours active: escalier, marche, yoga et danse. Le mental va très bien."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: PROGRESSION S02-S10 -->
+            <div id="progression" class="tab-content">
+                <div class="section">
+                    <div class="section-title">📈 Timeline: De Silencieuse à Active</div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">18 Janvier 2026 — S02</div>
+                                <div class="timeline-quote">Voilà!</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">21 Janvier 2026 — S03</div>
+                                <div class="timeline-quote">Yes, victoire!</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">11 Février 2026 — S06 (La Semaine de Prise de Conscience)</div>
+                                <div class="timeline-quote">
+                                    "Je n'ai vraiment de temps mort car je mange debout en étudiant des radiographies."
+                                    <br/><br/>
+                                    "J'ai fait trois séries de 3 squats en divers moments."
+                                    <br/><br/>
+                                    "Je maintiens le plan car sinon tout crash..."
+                                    <br/><br/>
+                                    "Faire des fentes en regardant une vidéo de mon Association des chiropraticiens du QC."
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">16 Février 2026 — S07</div>
+                                <div class="timeline-quote">Je suis à la maison mais je ferai 5 squats aux 30 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">19 Février 2026 — S07</div>
+                                <div class="timeline-quote">Bon sommeil et clarté mentale, on continue! Elliptique demain!</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">🎯 1er Mars 2026 — S09 (LE PIVOT)</div>
+                                <div class="timeline-quote">
+                                    "Je suis inscrite à une application Tai Chi pour 4 semaines. J'ai fait un 13 minutes de yoga aujourd'hui.
+                                    J'ai pratiqué 5 minutes de méditation profonde."
+                                    <br/><br/>
+                                    <strong style="color: #ff9800;">← Moment clé: décision intentionnelle + accumulation de pratiques</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">4 Mars 2026 — S09</div>
+                                <div class="timeline-quote">
+                                    "J'ao observé que je fais des squats à chaque positionnement de patients afin de régler l'appareil
+                                    et de vérifier leur positionnement. Donc, 25 squats mardi 03 mars"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">5 Mars 2026 — S09</div>
+                                <div class="timeline-quote">Tai Chi fait en ligne 13 minutes!</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">7 Mars 2026 — S10 (Samedi — Bonus)</div>
+                                <div class="timeline-quote">
+                                    "Je suis toujours active: escalier, marche, yoga et danse. Le mental va très bien."
+                                    <br/><br/>
+                                    "Monter et descendre escalier 10X dans la journée, lavage et séchage des vêtements,. Feeling good!"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">10 Mars 2026 — S10 (Aujourd'hui)</div>
+                                <div class="timeline-quote">
+                                    "Escaliers 4 étages complétés au moins 5 fois par jour. Le cardio s'améliore en même temps.
+                                    Je recommence mon plan alimentaire ayant trouvé les aliments bénéfiques. Repos aussi."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🔄 Evolution de l'Engagement</div>
+                    <div class="pattern-evolution">
+                        <div class="evolution-stage">
+                            <div class="stage-name">S02-S03: Premiers Pas</div>
+                            <div class="stage-detail">
+                                Deux victoires rapides. Puis silence complet pendant 3 semaines.
+                                Signal faible. Engagement instable.
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S06: Prise de Conscience</div>
+                            <div class="stage-detail">
+                                5 entrées en un jour (11 fév). Chantal réalise: "Je maintiens le plan car sinon tout crash."
+                                Elle comprend sa saturation. Elle commence à documenter ses micro-mouvements.
+                                C'est l'observation avant le changement.
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S07: Stabilisation Discrète</div>
+                            <div class="stage-detail">
+                                Moins d'entries (3 en deux semaines), mais plus concentrées.
+                                Elle note: "Bon sommeil et clarté mentale, on continue!"
+                                Signal d'une discipline émergente.
+                            </div>
+                        </div>
+
+                        <div class="evolution-stage">
+                            <div class="stage-name">S09-S10: Le Décollage (POST-TAI CHI)</div>
+                            <div class="stage-detail">
+                                Inscription Tai Chi = déclencheur. Les entrées passent de 3 par semaine à 6+ par semaine.
+                                Escaliers 10X/jour → Escaliers 4 étages x5/jour.
+                                Yoga 13 min → Tai Chi + yoga + danse + marche.
+                                "Le mental va très bien" est répété. C'est la phase de consolidation.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LE CATALYSEUR (TAI CHI) -->
+            <div id="catalyseur" class="tab-content">
+                <div class="section">
+                    <div class="section-title">🎯 Le Moment Qui Tout Change (1er Mars)</div>
+                    <div class="quote-box">
+                        "Je suis inscrite à une application Tai Chi pour 4 semaines.
+                        J'ai fait un 13 minutes de yoga aujourd'hui.
+                        J'ai pratiqué 5 minutes de méditation profonde."
+                    </div>
+                    <p style="font-size: 15px; line-height: 1.8; color: #555; margin-top: 20px;">
+                        C'est une date pivot. Pas spectaculaire à première vue — juste une inscription à une app.
+                        Mais c'est la première fois que Chantal <strong>décide intentionnellement</strong> d'ajouter une pratique
+                        <strong>spirituelle</strong> à son système pragmatique.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">❓ Pourquoi le Tai Chi Fonctionne Pour Toi</div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-title">⏱️ Durée Parfaite</div>
+                            <div class="card-content">
+                                13 minutes. Pas 45 min de yoga intense. Pas une grosse session gym.
+                                13 minutes = c'est microblockable dans une journée saturée.
+                                C'est à ta portée en tant que Pragmatique Invisible.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🧘 Mouvement Lent = Régulation</div>
+                            <div class="card-content">
+                                Tai Chi n'est pas cardio explosif. C'est flux. Rond. Continu.
+                                Pour quelqu'un saturée qui ne peut pas s'arrêter,
+                                le Tai Chi =mouvement sans urgence = relaxation du système nerveux.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">📱 Digital = Accessible</div>
+                            <div class="card-content">
+                                App en ligne. Pas besoin de te déplacer. Pas de cours à horaires fixes.
+                                Tu peux faire 13 min n'importe quand, n'importe où.
+                                Ça colle à ta vie chaotique.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">✨ Intention + Méditation</div>
+                            <div class="card-content">
+                                "J'ai pratiqué 5 minutes de méditation profonde."
+                                Le Tai Chi te donne accès à la spiritualité — quelque chose qu'une chiropraticienne pragmatique
+                                n'avait peut-être jamais exploré avant.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 Impact Chiffré (Avant/Après Tai Chi)</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.9; color: #555;">
+                            <strong>Avant Tai Chi (S06-S08):</strong><br/>
+                            • 7 entrées en 3 semaines<br/>
+                            • Activité: squats, fentes, marche<br/>
+                            • Taux succès estimé: 40-50%<br/>
+                            • Signal émotionnel: "je maintiens, sinon crash"<br/><br/>
+
+                            <strong>Après Tai Chi (S09-S10, 9 jours):</strong><br/>
+                            • 7 entrées en 9 jours (2x + dense)<br/>
+                            • Activité: Tai Chi, yoga, escaliers (10x → 5x 4-étages), danse<br/>
+                            • Taux succès: 60%<br/>
+                            • Signal émotionnel: "Le mental va très bien" (répété 2x)<br/>
+                            • Aliments bénéfiques retrouvés<br/>
+                            • Repos reconnu comme prioritaire
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🔮 Prochains Pas (Tai Chi 4 Semaines = Jusqu'à 28 Mar)</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.8; color: #555;">
+                            Tu as 4 semaines d'accès à l'app Tai Chi. C'est une fenêtre test.
+                            L'objectif S10 + S11 est de <strong>ancrer</strong> cette pratique avant que le accès n'expire.
+                            <br/><br/>
+                            Si ça marche (et les signaux disent que ça marche), tu auras une décision à prendre:
+                            payer pour continuer ou trouver une alternative gratuite (YouTube, clubs locaux).
+                            <br/><br/>
+                            Mais avant tout ça: profite. Ressens. Observe ce que le Tai Chi t'apporte.
+                            "Le mental va très bien" — c'est déjà une victoire.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: PLAN S10 -->
+            <div id="plan-s10" class="tab-content">
+                <div class="section">
+                    <div class="section-title">🎯 Recommandations S10 (8-14 Mars)</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; font-weight: 600; color: #667eea; margin-bottom: 15px;">
+                            Charge: 2 Objectifs/Jour (Taux Succès 60%)
+                        </p>
+                        <p style="font-size: 14px; line-height: 1.7; color: #555;">
+                            Pourquoi 2? Tu es en phase ENGAGEMENT montante (60%), pas FEU.
+                            2 objectifs te permettent de consolidation le Tai Chi sans épuisement.
+                            Tes 5 entrées en un jour (11 fév) montrent que tu peux documenter, mais on ne force pas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📅 Objectifs Proposés par Jour</div>
+                    <div class="objectives-grid">
+                        <div class="objective-item">
+                            <div class="objective-day">Lundi 09 Mars</div>
+                            <ul class="objective-list">
+                                <li>Tai Chi 13 min (app, matin)</li>
+                                <li>Escaliers: 4 étages x3+ durant la journée (perso ou clinique)</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Mardi 10 Mars</div>
+                            <ul class="objective-list">
+                                <li>Yoga 13 min (ou méditation 5 min)</li>
+                                <li>Squats micro-moments: 20+ durant consultations</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Mercredi 11 Mars</div>
+                            <ul class="objective-list">
+                                <li>Tai Chi 13 min (app, matin ou midi)</li>
+                                <li>Marche: 15-20 min (cour-midi ou soir)</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Jeudi 12 Mars</div>
+                            <ul class="objective-list">
+                                <li>Yoga/Danse 13 min</li>
+                                <li>Escaliers: 4 étages x2+ (intégrer dans jour)</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Vendredi 13 Mars</div>
+                            <ul class="objective-list">
+                                <li>Tai Chi 13 min (app, matin — fin de semaine cool)</li>
+                                <li>Repos planifié + bonne alimentation (aliments bénéfiques)</li>
+                            </ul>
+                        </div>
+
+                        <div class="objective-item">
+                            <div class="objective-day">Samedi 14 Mars (Bonus)</div>
+                            <ul class="objective-list">
+                                <li>Activité au choix: danse 20 min OU escaliers 10x OU yoga + Tai Chi</li>
+                                <li>Sommeil + clarté mentale (ce qui te rend heureuse)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">💡 Principes Coaching</div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-title">1️⃣ Tai Chi = Ancre Centrale</div>
+                            <div class="card-content">
+                                C'est ta nouvelle "signature" cette semaine.
+                                Elle doit apparaître 3x dans la semaine (lun, mer, ven) pour que ça dure au-delà des 4 semaines d'appli.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">2️⃣ Micro-Mouvements Restent</div>
+                            <div class="card-content">
+                                Squats aux consultations, escaliers intégrés, marche midi — ça, tu le fais déjà bien.
+                                On garde. On documente. On célèbre.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">3️⃣ Repos = Priorité S10</div>
+                            <div class="card-content">
+                                Tu as dit "Repos aussi" — c'est un signal d'une sagesse précieuse.
+                                Samedi n'est pas un "jour off", c'est un jour de régulation.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">4️⃣ Clarté Mentale = Signal</div>
+                            <div class="card-content">
+                                Continue à observer. "Le mental va très bien" est le baromètre.
+                                Si c'est toujours vrai à fin S10, on maintient.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📌 Ce Qu'On Attend de Toi</div>
+                    <div class="highlight-box">
+                        <p style="font-size: 15px; line-height: 1.9; color: #555;">
+                            <strong>✓ Fais tes 2 objectifs par jour.</strong> Si c'est trop, on réduit à 1.<br/>
+                            <strong>✓ Note 1 seule chose par jour:</strong> Tai Chi ✓ ou Escaliers ✓ ou "Mental va bien" ✓<br/>
+                            <strong>✓ Donne-toi 4 semaines Tai Chi:</strong> C'est ta fenêtre test. Ressens l'impact.<br/>
+                            <strong>✓ Évalue fin mars:</strong> Vaut-il le coup de continuer (payant)? Ou gratuit sur YouTube?<br/>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🌟 Message Final</div>
+                    <div class="quote-box">
+                        Chantal, tu es une femme pragmatique qui a trouvé une brèche dans ta saturation.
+                        13 minutes Tai Chi. Petit geste. Impact énorme.
+                        <br/><br/>
+                        Continue à être invisible quand tu fais ton travail.
+                        Mais sois lumineuse quand tu fais ton Tai Chi.
+                        Tu le mérites. Ton mental va très bien pour une raison: tu t'y autorises, enfin.
+                        <br/><br/>
+                        À S11, on reparle.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Coaching Personnalisé — S10 (8-14 Mars 2026)</strong></p>
+            <p>Espace Sécurisé | Analyse Individualisée | Suivi Hebdomadaire</p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            // Hide all tabs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab and mark tab as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Validate token on page load
+        window.addEventListener('load', function() {
+            const storedToken = sessionStorage.getItem('participant_token');
+            const expectedToken = 'chantal_coach_secret_h7j2l8v';
+
+            if (storedToken !== expectedToken) {
+                window.location.href = '../index.html';
+            }
+        });
+    </script>
+</body>
+</html>
