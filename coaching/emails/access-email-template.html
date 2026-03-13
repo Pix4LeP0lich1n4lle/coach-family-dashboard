@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ton Espace Coaching Personnel</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 10px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .greeting strong {
+            color: #667eea;
+        }
+        .section {
+            margin: 30px 0;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .code-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            word-break: break-all;
+        }
+        .instruction {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        .instruction ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .instruction li {
+            margin: 8px 0;
+            color: #333;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .feature-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .feature-text {
+            flex: 1;
+        }
+        .feature-text strong {
+            display: block;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        .feature-text span {
+            color: #666;
+            font-size: 13px;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 13px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .support-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .quote {
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            background: #f8f9fa;
+            font-size: 14px;
+            color: #333;
+            font-style: italic;
+        }
+        .public-dashboard {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .public-dashboard-title {
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .private-dashboard {
+            background: linear-gradient(135deg, #f3e5f5 0%, #fce4ec 100%);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .private-dashboard-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🎯 Ton Espace Coaching Personnel</h1>
+            <p>Bienvenue, {{PARTICIPANT_NAME}}</p>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <div class="greeting">
+                Salut {{PARTICIPANT_NAME}},<br/><br/>
+                On a créé <strong>deux espaces</strong> pour toi où tu peux voir toute ton évolution (S01-S10),
+                tes objectifs, tes entrées journelles, et notre plan coaching ensemble.
+                <br/><br/>
+                C'est <strong>100% privé</strong> et accès sécurisé.
+            </div>
+
+            <!-- PUBLIC DASHBOARD -->
+            <div class="section">
+                <div class="public-dashboard">
+                    <div class="public-dashboard-title">👨‍👩‍👧‍👦 Dashboard Familial (Accessible par Tous)</div>
+                    <p style="color: #333; margin: 10px 0; line-height: 1.6;">
+                        C'est un dashboard que ta famille peut voir — il montre la progression de tout le monde,
+                        les stats par semaine, et un peu de compétition amicale.
+                    </p>
+                    <div class="button-container">
+                        <a href="https://pix4lep0lich1n4lle.github.io/coach-family-dashboard/" class="cta-button">
+                            ➜ Voir le Dashboard Familial
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRIVATE DASHBOARD -->
+            <div class="section">
+                <div class="private-dashboard">
+                    <div class="private-dashboard-title">🔐 Ton Espace Coaching Personnel (Privé)</div>
+                    <p style="color: #333; margin: 10px 0; line-height: 1.6;">
+                        C'est <strong>TON</strong> espace. Pas accessible par la famille. Que toi.
+                        Tu y vois ton analyse détaillée, tes patterns, tes breakthroughs, et tes objectifs S10 personnalisés.
+                    </p>
+
+                    <div class="button-container">
+                        <a href="{{PERSONAL_DASHBOARD_URL}}" class="cta-button">
+                            ➜ Accéder à Mon Espace Personnel
+                        </a>
+                    </div>
+                    <p style="text-align: center; color: #999; font-size: 13px;">
+                        (Tu peux aussi sauvegarder ce lien dans tes favoris)
+                    </p>
+                </div>
+            </div>
+
+            <!-- ALTERNATIVE MANUAL ACCESS -->
+            <div class="section">
+                <div class="section-title">🔑 Ou Entrer Manuellement</div>
+                <div class="instruction">
+                    <ol>
+                        <li>Va sur: <code style="background: #f0f4ff; padding: 2px 4px; border-radius: 2px;">https://pix4lep0lich1n4lle.github.io/coach-family-dashboard/coaching/index.html</code></li>
+                        <li>Copie-colle ta clé d'accès (ci-dessous)</li>
+                        <li>Clique "Accéder à mon espace"</li>
+                    </ol>
+                </div>
+
+                <p style="margin-top: 20px; font-weight: 600; color: #333;">Ta Clé d'Accès:</p>
+                <div class="code-box">
+                    {{PARTICIPANT_TOKEN}}
+                </div>
+                <p style="color: #999; font-size: 13px;">
+                    ⚠️ Garde cette clé privée. Ne la partage pas sur les réseaux publics.
+                </p>
+            </div>
+
+            <!-- WHAT YOU'LL SEE -->
+            <div class="section">
+                <div class="section-title">📊 Ce que Tu Vas Voir (Dans Ton Espace Personnel)</div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📈</div>
+                        <div class="feature-text">
+                            <strong>Vue d'Ensemble</strong>
+                            <span>Tes stats S01-S10, moments clés, archétype personnel</span>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-text">
+                            <strong>Progression Détaillée</strong>
+                            <span>Semaine par semaine avec courbes, phases, patterns identifiés</span>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">
+                            <strong>Objectifs S10 Personnalisés</strong>
+                            <span>Adaptés à ta charge, ton archétype, ton taux de succès</span>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-text">
+                            <strong>Tes Entrées Journelles</strong>
+                            <span>Timeline complète avec citations — tu verras ton évolution</span>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💡</div>
+                        <div class="feature-text">
+                            <strong>Plan Coaching S10+</strong>
+                            <span>Stratégie détaillée, forces, points d'attention, prochaines étapes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEXT STEPS -->
+            <div class="section">
+                <div class="section-title">📌 Prochaines Étapes</div>
+                <div class="instruction">
+                    <p style="margin: 0 0 10px; color: #333;">
+                        Cette semaine (S10), voici ce qui compte:
+                    </p>
+                    <ol>
+                        <li><strong>Accède à ton espace personnel</strong> — prends 10 min pour explorer</li>
+                        <li><strong>Lis ton analyse</strong> — comprends ton archétype et tes patterns</li>
+                        <li><strong>Note tes objectifs S10</strong> — ils sont là pour toi, pas contre toi</li>
+                        <li><strong>Fais-les progresser</strong> — petit à petit, jour après jour</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- QUESTIONS -->
+            <div class="section">
+                <div class="section-title">❓ Des Questions?</div>
+                <p style="color: #333; line-height: 1.6;">
+                    Si le lien ne marche pas, ou tu as des questions sur ton espace coaching, écris-moi directement.
+                    <br/><br/>
+                    On va continuer ensemble à consolider tes forces et naviguer tes défis.
+                    <br/><br/>
+                    <strong>Tu fais du très bon travail.</strong> Semaine après semaine. ✓
+                </p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Coaching Personnalisé — S10 (8-14 Mars 2026)</strong></p>
+            <p>Espace Sécurisé | Accès Personnalisé | Mises à Jour Hebdomadaires</p>
+            <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px;">
+                Envoyé par Coach Joseph<br/>
+                Questions? <a href="mailto:tjpm.blog@gmail.com" class="support-link">Contacte-moi</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
