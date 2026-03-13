@@ -50,15 +50,6 @@ PARTICIPANTS = [
 
 def load_credentials():
     """Load SMTP credentials from .connexion file."""
-    # Try local .env first
-    env_path = Path(__file__).parent / ".env"
-    if env_path.exists():
-        import dotenv
-        dotenv.load_dotenv(env_path)
-        email = os.getenv("COACH_EMAIL")
-        if email:
-            return {"email": email, "app_password": ""}  # Placeholder if using .env
-
     # Fall back to .connexion file
     cred_path = Path.home() / "ai-lab" / "PROJECTS" / "Coach_Suivies" / ".credentials" / ".connexion"
 
@@ -74,24 +65,31 @@ def load_credentials():
     in_credentials_section = False
 
     for line in lines:
-        line = line.strip()
+        # Don't strip yet - preserve spaces in values
+        stripped = line.strip()
 
-        if line == '[CREDENTIALS]':
+        if stripped == '[CREDENTIALS]':
             in_credentials_section = True
             continue
 
-        if line.startswith('[') and line != '[CREDENTIALS]':
+        if stripped.startswith('[') and stripped != '[CREDENTIALS]':
             in_credentials_section = False
             continue
 
-        if in_credentials_section:
-            if line.startswith('Email='):
-                email = line.split('=', 1)[1].strip()
-            elif line.startswith('App Password='):
-                app_password = line.split('=', 1)[1].strip()
+        if in_credentials_section and '=' in stripped:
+            key, value = stripped.split('=', 1)
+            key = key.strip()
+            value = value.strip()
+
+            if key == 'Email':
+                email = value
+            elif key == 'App Password':
+                app_password = value
 
     if not email or not app_password:
-        print("❌ Could not find Email or App Password in [CREDENTIALS] section")
+        print(f"❌ Could not find Email or App Password in [CREDENTIALS] section")
+        print(f"   Email found: {email}")
+        print(f"   App Password found: {bool(app_password)}")
         sys.exit(1)
 
     return {
