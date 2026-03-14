@@ -3,763 +3,666 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Coaching - Marie Giguère</title>
+    <title>Marie Giguère — Dashboard Complet S01-S10</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f8f9fa;
-            color: #333;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 30px 20px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
 
+        /* HEADER */
         header {
-            background: linear-gradient(135deg, #FF6B6B 0%, #C92A2A 100%);
+            text-align: center;
+            margin-bottom: 40px;
             color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.6s ease-out;
         }
 
-        .header-content h1 {
-            font-size: 28px;
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        .date-info {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* STATS OVERVIEW */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        /* TABS */
+        .tabs-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 20px 15px;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .tab-btn.active {
+            background: rgba(255,255,255,0.15);
+            border-bottom-color: white;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: white;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        /* TAB CONTENT */
+        .tabs-content {
+            padding: 40px;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* SECTIONS */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        /* ENTRIES LIST */
+        .entry {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .entry:hover {
+            border-left-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(99,102,241,0.1);
+        }
+
+        .entry-date {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.85rem;
             margin-bottom: 5px;
         }
 
-        .header-content p {
-            opacity: 0.9;
-            font-size: 14px;
+        .entry-text {
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+
+        /* INFO BLOCKS */
+        .info-block {
+            background: linear-gradient(135deg, #f3f4f6 0%, #f9fafb 100%);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-engagement {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-feu {
+            background: #fed7aa;
+            color: #92400e;
+        }
+
+        .badge-fading {
+            background: #fde2e4;
+            color: #9f1239;
+        }
+
+        .badge-ghost {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+            margin: 0 5px;
         }
 
         .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
+            background: rgba(255,255,255,0.2);
             color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            margin-top: 15px;
             transition: all 0.3s ease;
         }
 
         .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
         }
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
-            overflow-x: auto;
-        }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .tabs-header {
+                flex-wrap: wrap;
+            }
 
-        .tab-btn {
-            padding: 12px 20px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-weight: 600;
-            color: #999;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
+            .tab-btn {
+                flex: 0 0 50%;
+                padding: 15px 10px;
+            }
 
-        .tab-btn.active {
-            color: #FF6B6B;
-            border-bottom-color: #FF6B6B;
-        }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
 
-        .tab-btn:hover {
-            color: #FF6B6B;
-        }
+            h1 {
+                font-size: 2rem;
+            }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .card h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-box.accent {
-            background: linear-gradient(135deg, #FF6B6B 0%, #C92A2A 100%);
-            color: white;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.8;
-        }
-
-        .archetype-box {
-            background: linear-gradient(135deg, #FF6B6B 0%, #C92A2A 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .archetype-box h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .archetype-box p {
-            font-size: 13px;
-            line-height: 1.5;
-            opacity: 0.9;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
-        .status-fading {
-            background: #fff3e0;
-            color: #e65100;
-        }
-
-        .status-engagement {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .status-feu {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-left: 50px;
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            background: #FF6B6B;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 2px #FF6B6B;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 12px;
-            width: 2px;
-            height: calc(100% + 8px);
-            background: #e0e0e0;
-        }
-
-        .timeline-item:last-child::after {
-            display: none;
-        }
-
-        .timeline-content {
-            flex: 1;
-        }
-
-        .timeline-date {
-            font-weight: 600;
-            color: #FF6B6B;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .timeline-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .timeline-description {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: #f0f4ff;
-            color: #FF6B6B;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin: 5px 5px 5px 0;
-        }
-
-        .badge.growth {
-            background: #e8f5e9;
-            color: #4caf50;
-        }
-
-        .entry-quote {
-            background: #f8f9fa;
-            border-left: 4px solid #FF6B6B;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #666;
-            font-style: italic;
-            margin: 10px 0;
-            line-height: 1.5;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            margin-top: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        thead {
-            background: #f8f9fa;
-            border-bottom: 2px solid #FF6B6B;
-        }
-
-        th {
-            padding: 10px;
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .highlight {
-            background: #fff3e0;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: 600;
-        }
-
-        .insight-box {
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            border-left: 4px solid #FF6B6B;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-
-        .insight-box h4 {
-            color: #e65100;
-            margin-bottom: 8px;
-        }
-
-        .insight-box p {
-            color: #333;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .footer {
-            background: #f8f9fa;
-            padding: 30px;
-            text-align: center;
-            border-top: 1px solid #e0e0e0;
-            color: #666;
-            font-size: 13px;
-        }
-
-        .footer p {
-            margin: 5px 0;
+            .tabs-content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="header-content">
-                <h1>Marie Giguère 🎯</h1>
-                <p>L'Observatrice Souveraine — Espace de coaching personnalisé</p>
-            </div>
-            <button class="logout-btn" onclick="logout()">Quitter</button>
+            <h1>✨ Marie Giguère</h1>
+            <p class="subtitle">L'Observatrice Souveraine</p>
+            <p class="date-info">Dashboard Complet S01-S10 • 11 jan - 14 mar 2026</p>
         </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('overview', this)">📊 Vue d'ensemble</button>
-            <button class="tab-btn" onclick="switchTab('progression', this)">📈 Progression S01-S09</button>
-            <button class="tab-btn" onclick="switchTab('patterns', this)">🔄 Patterns & Breakthroughs</button>
-            <button class="tab-btn" onclick="switchTab('coaching', this)">💡 Plan S10</button>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Taux Succès</div>
+                <div class="stat-value">60%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Entrées</div>
+                <div class="stat-value">23</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">État</div>
+                <div class="stat-value">ENGAGEMENT</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Semaine Peak</div>
+                <div class="stat-value">S08 (🔥100%)</div>
+            </div>
         </div>
 
-        <!-- TAB: OVERVIEW -->
-        <div id="overview" class="tab-content active">
-            <div class="card">
-                <div class="archetype-box">
-                    <h3>🏛️ L'Observatrice Souveraine</h3>
-                    <p>
-                        <strong>Âge:</strong> 58 ans<br/>
-                        <strong>Focus:</strong> Méditation, écriture, réflexion | Sortir des jeux de pouvoir (Triangle Karpman)<br/>
-                        <strong>Domaines clés:</strong> Méditation quotidienne, mouvements créatifs, vigilance patterns relationnels, nouvelles identités
-                    </p>
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchTab(event, 'overview')">📊 Vue d'Ensemble</button>
+                <button class="tab-btn" onclick="switchTab(event, 'evolution')">📈 Évolution S01-S10</button>
+                <button class="tab-btn" onclick="switchTab(event, 'entries')">📝 Entrées Brutes</button>
+                <button class="tab-btn" onclick="switchTab(event, 'rapport')">📋 Rapport Quotidien</button>
+            </div>
+
+            <div class="tabs-content">
+                <!-- TAB: OVERVIEW -->
+                <div id="overview" class="tab-pane active">
+                    <div class="section">
+                        <h2 class="section-title">💡 Profil & Archétype</h2>
+                        <div class="info-block">
+                            <div class="info-label">Archétype</div>
+                            <div class="info-value">L'Observatrice Souveraine | 58 ans</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Focus Primaire</div>
+                            <div class="info-value">Sortir des jeux de pouvoir psychologiques et assumer sa pleine valeur</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Résolution de Base</div>
+                            <div class="info-value">Organiser, choisir et se défaire de tout ce dont elle n'a plus besoin facilement et avec légèreté. Besoin d'un cadre de vie propre.</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">🌟 Percée Clé S01-S10</h2>
+                        <div class="info-block">
+                            <div class="info-value">Formation méditation finalisation, intégration équipe créative, doute Reiki = sagesse</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">📊 Statistiques Globales</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Métrique</th>
+                                    <th>Valeur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total entrées</td>
+                                    <td><strong>23</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Taux succès moyen</td>
+                                    <td><strong>60%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Semaine peak</td>
+                                    <td><span class="badge badge-feu">S08 (100% FEU)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>État actuel</td>
+                                    <td><span class="badge badge-engagement">ENGAGEMENT</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <h2>📊 Vue d'ensemble S01-S09</h2>
-                <div class="stat-grid">
-                    <div class="stat-box accent">
-                        <div class="stat-value">44.3%</div>
-                        <div class="stat-label">Taux Moyen</div>
+                <!-- TAB: EVOLUTION -->
+                <div id="evolution" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">📈 Évolution Semaine par Semaine</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Semaine</th>
+                                    <th>Dates</th>
+                                    <th>Entrées</th>
+                                    <th>Taux</th>
+                                    <th>État</th>
+                                    <th>Tendance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>S01</strong></td><td>11-17 jan</td><td>3</td><td>40%</td><td><span class="badge badge-fading">FADING</span></td><td>➡️ Exploration</td></tr>
+                                <tr><td><strong>S02-S03</strong></td><td>18-31 jan</td><td>0</td><td>❌</td><td><span class="badge badge-ghost">GHOST</span></td><td>⬇️ Silence</td></tr>
+                                <tr><td><strong>S04</strong></td><td>01-07 fév</td><td>1</td><td>20%</td><td><span class="badge badge-ghost">GHOST</span></td><td>⬇️ Bottom</td></tr>
+                                <tr><td><strong>S05</strong></td><td>08-14 fév</td><td>4</td><td>60%</td><td><span class="badge badge-engagement">ENGAGEMENT</span></td><td>↗️ Reprise</td></tr>
+                                <tr><td><strong>S06</strong></td><td>15-21 fév</td><td>4</td><td>40%</td><td><span class="badge badge-fading">FADING</span></td><td>💡 Prise conscience</td></tr>
+                                <tr><td><strong>S07</strong></td><td>22-28 fév</td><td>1</td><td>20%</td><td><span class="badge badge-ghost">GHOST</span></td><td>⬇️ Silence</td></tr>
+                                <tr><td><strong>S08</strong></td><td>01-07 mar</td><td>6</td><td>100%</td><td><span class="badge badge-feu">FEU</span></td><td>🌟 RENAISSANCE</td></tr>
+                                <tr><td><strong>S09</strong></td><td>08-14 mar</td><td>2</td><td>40%</td><td><span class="badge badge-fading">FADING</span></td><td>⬇️ Retrait</td></tr>
+                                <tr><td><strong>S10</strong></td><td>15-21 mar</td><td>2</td><td>60%</td><td><span class="badge badge-engagement">ENGAGEMENT</span></td><td>➡️ Consolidation</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="stat-box accent">
-                        <div class="stat-value">21</div>
-                        <div class="stat-label">Entrées Totales</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label">Peak (S08)</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">20%</div>
-                        <div class="stat-label">Lowest (S04, S07)</div>
+
+                    <div class="section">
+                        <h2 class="section-title">🔄 Cycle Émotionnel Détecté</h2>
+                        <div class="info-block">
+                            <div class="info-label">Phase 1: Doute Profond (S01-S04)</div>
+                            <div class="info-value">Exploration initiale → silence radio → doute creuse. Zone de sabotage identifiée.</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Phase 2: Incubation & Conscience (S05-S06)</div>
+                            <div class="info-value">⭐ BREAKTHROUGH: Triangle Karpman découverte. Identification pattern victime → bourreau.</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Phase 3: Renaissance Créative (S07-S08)</div>
+                            <div class="info-value">🔥 EXPLOSION POSITIVE: Méditation, yoga, ski, DJ, nouvelle identité créative déploiement.</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Phase 4: Consolidation & Réflexion (S09-S10)</div>
+                            <div class="info-value">Retrait intentionnel, vigilance patterns, défi Reiki, formation méditation finalisation.</div>
+                        </div>
                     </div>
                 </div>
 
-                <h2 style="margin-top: 20px;">État Actuel S09</h2>
-                <span class="status-badge status-fading">🟡 FADING (40%)</span>
-                <p style="color: #666; font-size: 14px; line-height: 1.6;">
-                    Retrait relatif après la renaissance S08. Méditation sur pleine lune, étude symboles Reiki, fatigue cumulative au travail.
-                    État naturel de consolidation.
-                </p>
-
-                <h2 style="margin-top: 30px;">⭐ Moments Clés Identifiés</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S06 - 13 février</div>
-                            <div class="timeline-title">💡 Triangle Karpman Discovery</div>
-                            <div class="entry-quote">
-                                "J'ai exploré cette semaine sous l'angle du triangle de Karpman... j'ai été choquée de voir que je me positionne dans le rôle de victime...
-                                Et ensuite je glisse dans le rôle de bourreau en dénigrant mes idées."
-                            </div>
-                            <span class="badge growth">Prise de conscience profonde</span>
-                        </div>
+                <!-- TAB: ENTRIES -->
+                <div id="entries" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">📝 Toutes les Entrées (S01-S10)</h2>
+                        <div id="entries-list"></div>
                     </div>
+                </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S08 - 14-15 février</div>
-                            <div class="timeline-title">🔥 RENAISSANCE CRÉATIVE</div>
-                            <div class="entry-quote">
-                                "Je me sens CRÉATIVE - et c'est une façon de transformer l'état de victime... J'ai activé et bien senti le prana en moi.
-                                J'ai fait mon pain... Après midi, je vais aller faire du ski. Je suis assez satisfaite de ma semaine."
+                <!-- TAB: RAPPORT -->
+                <div id="rapport" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">📋 Rapport d'Analyse Quotidien (14 mars 2026)</h2>
+                        <div class="info-block">
+                            <div class="info-label">État Actuel — S10 Consolidation Créative</div>
+                            <div class="info-value">
+                                <strong>Engagement State:</strong> ENGAGEMENT 🟢 (60% — 3/5 jours Lun-Ven)<br>
+                                <strong>Trend:</strong> ➡️ Stable (après S08 peak de 100%)<br>
+                                <strong>Élan créatif:</strong> 🔥 Maintenu (Méditation + mouvements = constantes fortes)<br>
+                                <strong>Vigilance Sabotage:</strong> ✅ Contrôlé (Pattern Karpman awareness actif)
                             </div>
-                            <span class="badge growth">Transformation identitaire</span>
                         </div>
-                    </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S08 - 7 mars</div>
-                            <div class="timeline-title">✨ DJ Success & Équipe</div>
-                            <div class="entry-quote">
-                                "J'ai d'ailleurs offert ma participation à une femme qui mène plusieurs projets... C'est cool!
-                                Samedi j'ai été DJ à notre soirée et j'ai envie de mieux m'organiser... 3-4 heures non stop. J'ai eu du gros fun!"
+                        <h3 class="section-subtitle">Recommandations S11+</h3>
+                        <div class="info-block">
+                            <div class="info-label">Axe 1: Finaliser Formation Méditation</div>
+                            <div class="info-value">
+                                1. Valider devoir final auprès formateur<br>
+                                2. Planifier date enseignement premier cours (printemps 2026)<br>
+                                3. Célébrer completion — c'est majeur!
                             </div>
-                            <span class="badge">Nouvelle identité déployée</span>
                         </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S09 - 10 mars</div>
-                            <div class="timeline-title">🎯 Défi Reiki Engagé</div>
-                            <div class="entry-quote">
-                                "Défi : prodiguer 5 soins Reiki d'ici le 15 mai. Let's go!
-                                J'ai étudié mes symboles Reiki pour arriver à les mémoriser. J'ai un nouveau moyen d'aller à 112!"
+                        <div class="info-block">
+                            <div class="info-label">Axe 2: Reiki — Clarifier Doute + Agir</div>
+                            <div class="info-value">
+                                1. Journal 2-3 pages: Pourquoi Reiki reste aligné pour moi?<br>
+                                2. Commencer défi 5 soins: 1 soin pour ami/famille cette semaine<br>
+                                3. Symboles: Mémoriser 3 symboles de base
                             </div>
-                            <span class="badge">Commitment & action</span>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Axe 3: Équipe Créative + Identité Nouvelle</div>
+                            <div class="info-value">
+                                1. Expliquer participation femme de coeur en "mots simples"<br>
+                                2. DJ gig suivant: Organiser setup (micro? ordinateur?)<br>
+                                3. Méditation en équipe: Proposer class meditation à projet collaboratif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB: PROGRESSION -->
-        <div id="progression" class="tab-content">
-            <div class="card">
-                <h2>📈 Courbe d'Évolution Semaine par Semaine</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Semaine</th>
-                                <th>Dates</th>
-                                <th>Entrées</th>
-                                <th>Taux</th>
-                                <th>État</th>
-                                <th>Domaines Actifs</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>S01</strong></td>
-                                <td>11-17 jan</td>
-                                <td>3</td>
-                                <td><span class="highlight">40%</span></td>
-                                <td>🟡 FADING</td>
-                                <td>Réflexion initiale</td>
-                            </tr>
-                            <tr>
-                                <td><strong>S02-S03</strong></td>
-                                <td>18-31 jan</td>
-                                <td>0</td>
-                                <td>❌</td>
-                                <td>Silence</td>
-                                <td>—</td>
-                            </tr>
-                            <tr>
-                                <td><strong>S04</strong></td>
-                                <td>01-07 fév</td>
-                                <td>1</td>
-                                <td><span class="highlight">20%</span></td>
-                                <td>🔴 GHOST</td>
-                                <td>Zone de sabotage</td>
-                            </tr>
-                            <tr>
-                                <td><strong>S05</strong></td>
-                                <td>08-14 fév</td>
-                                <td>4</td>
-                                <td><span class="highlight">60%</span></td>
-                                <td>🟢 ENGAGEMENT</td>
-                                <td>Méditation, incubation</td>
-                            </tr>
-                            <tr style="background: #fff3e0;">
-                                <td><strong>S06</strong></td>
-                                <td>15-21 fév</td>
-                                <td>4</td>
-                                <td><span class="highlight">40%</span></td>
-                                <td>🟡 FADING</td>
-                                <td>Triangle Karpman 💡</td>
-                            </tr>
-                            <tr>
-                                <td><strong>S07</strong></td>
-                                <td>22-28 fév</td>
-                                <td>1</td>
-                                <td><span class="highlight">20%</span></td>
-                                <td>🔴 GHOST</td>
-                                <td>Silence avant tempête</td>
-                            </tr>
-                            <tr style="background: #ffebee;">
-                                <td><strong>S08</strong></td>
-                                <td>01-07 mar</td>
-                                <td>6</td>
-                                <td><span class="highlight">100%</span></td>
-                                <td>🔥 FEU</td>
-                                <td>Méditation, yoga, ski, créativité 🌟</td>
-                            </tr>
-                            <tr>
-                                <td><strong>S09</strong></td>
-                                <td>08-14 mar</td>
-                                <td>2</td>
-                                <td><span class="highlight">40%</span></td>
-                                <td>🟡 FADING</td>
-                                <td>Méditation, Reiki, études</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h2 style="margin-top: 30px;">🔄 Phases d'Évolution</h2>
-
-                <div class="insight-box">
-                    <h4>Phase 1: Doute Profond (S01-S04)</h4>
-                    <p>
-                        "Je suis dans la zone de sabotage, pour une énième semaine. J'ai besoin de ton aide pour aller chercher profond
-                        pourquoi ces élans d'enthousiasme meurent littéralement."
-                        Sabotage émotionnel, jugement sévère, silence radio, doute en soi.
-                    </p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>Phase 2: Incubation & Conscience (S05-S06)</h4>
-                    <p>
-                        "Je poursuis une traversée étrange... j'ai pris du recul, j'ai moins envie de me juger sévèrement."
-                        Acceptation de l'incubation. Découverte Triangle Karpman = transformation clé.
-                    </p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>Phase 3: Renaissance Créative (S08)</h4>
-                    <p>
-                        Peak de S08 (100% FEU). DJ gig 3-4h non-stop, ski 9km solo, formation méditation en cours,
-                        nouvelle identité créative émerge. "J'ai envie de travailler en équipe, pas seul opérationnel."
-                    </p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>Phase 4: Consolidation (S09)</h4>
-                    <p>
-                        Retrait intentionnel. Méditation pleine lune, étude symboles Reiki, défi 5 soins avant 15 mai engagé.
-                        Fatigue cumulative au travail = normal après renaissance.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: PATTERNS -->
-        <div id="patterns" class="tab-content">
-            <div class="card">
-                <h2>🔄 Patterns & Breakthroughs Détectés</h2>
-
-                <h3 style="color: #333; margin: 20px 0 15px; font-size: 16px;">Pattern Principal: Sabotage → Conscience → Transformation</h3>
-                <p style="color: #666; margin-bottom: 15px; line-height: 1.6;">
-                    Cette 9 semaines ont montré un cycle émotionnel clair chez toi:
-                    Tu descends profond dans le doute (S01-S04), tu reconnais le pattern (S06),
-                    tu te transformes (S08), puis tu consolidates (S09).
-                </p>
-
-                <h3 style="color: #333; margin: 20px 0 15px; font-size: 16px;">💡 Déclencheurs de Doute & Récession</h3>
-                <ul style="color: #666; margin-left: 15px; line-height: 1.8; font-size: 14px;">
-                    <li><strong>Doute personnel profond:</strong> "Pourquoi mes élans d'enthousiasme meurent?" → silence radio</li>
-                    <li><strong>Fatigue cumulative au travail:</strong> "J'ai trouvé mon travail lourd cette semaine" → retrait S09</li>
-                    <li><strong>Impatience relationnelle:</strong> "Je tombe impatiente ou je me sens attaquée facilement" (avec François)</li>
-                    <li><strong>Perfectionnisme & jugement:</strong> Jugement sévère envers soi + susceptibilité envers autres</li>
-                </ul>
-
-                <h3 style="color: #333; margin: 20px 0 15px; font-size: 16px;">✨ Déclencheurs d'Expansion & Transformation</h3>
-                <ul style="color: #666; margin-left: 15px; line-height: 1.8; font-size: 14px;">
-                    <li><strong>Prise de conscience Karpman:</strong> Identifier pattern victime → bourreau = game changer</li>
-                    <li><strong>Mouvements créatifs:</strong> Ski, elliptique rapide, danse DJ = transformation sabotage</li>
-                    <li><strong>Méditation régulière:</strong> 15-30min quotidienne = fondation de stabilité + clarté</li>
-                    <li><strong>Nouvelle identité:</strong> "Je suis créative" = mantra puissant qui t'élève</li>
-                    <li><strong>Intention consciente:</strong> Remplacer patterns par "Je suis libre, je m'amuse, je suis souveraine"</li>
-                </ul>
-
-                <h2 style="margin-top: 30px;">🎯 Breakthroughs Clés</h2>
-
-                <div class="insight-box">
-                    <h4>S06: Triangle Karpman Awareness</h4>
-                    <p>
-                        Tu as identifié comment tu glisses entre les rôles de victime (doute, auto-sabotage)
-                        et de bourreau (jugement, dénigrement). Cette conscience est TON FONDATION pour le changement.
-                    </p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>S08: Renaissance Créative & Identité</h4>
-                    <p>
-                        "Je suis CRÉATIVE" n'est pas juste un mantra. C'est une réalisation profonde.
-                        Tu as commencé à vivre ça: DJ gig, formation méditation, envie de collaborer en équipe.
-                        C'est ta nouvelle identité qui se déploie.
-                    </p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>S09: Vigilance + Action = Maturité</h4>
-                    <p>
-                        "Je m'engage à être vigilante au niveau de mes patterns." + "Défi: 5 soins Reiki avant 15 mai"
-                        = Tu as intégré la conscience dans l'action. C'est mature et puissant.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: COACHING -->
-        <div id="coaching" class="tab-content">
-            <div class="card">
-                <h2>💡 Plan Coaching Recommandé S10</h2>
-                <p style="color: #666; margin-bottom: 15px; font-size: 14px; line-height: 1.6;">
-                    <strong>Charge:</strong> 3 objectifs/jour (Support volatilité, valider créativité)<br/>
-                    <strong>Priorité:</strong> Soutien émotionnel + vigilance patterns + consolidation méditation<br/>
-                    <strong>Focus:</strong> Méditation + Reiki + Karpman vigilance
-                </p>
-
-                <div style="background: #fff3e0; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #FF6B6B;">
-                    <h3 style="color: #e65100; margin-bottom: 10px;">⚠️ Points d'Attention S10</h3>
-                    <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 14px;">
-                        <li><strong>Volatilité émotionnelle:</strong> Tu passes de 20% à 100% rapidement. C'est ton pattern.</li>
-                        <li><strong>Fatigue au travail:</strong> Charge actuelle = peut contribuer au retrait S09. Protéger l'énergie.</li>
-                        <li><strong>Susceptibilité relationnelle:</strong> Impatience avec François mentionnée S06. Vigilance.</li>
-                    </ul>
-                </div>
-
-                <h3 style="color: #333; margin: 20px 0 15px; font-size: 16px;">📋 Objectifs S10 Recommandés (Lun-Ven)</h3>
-
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
-                    <h4 style="color: #333; margin-bottom: 10px;">Quotidien (Tous les jours)</h4>
-                    <ol style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 14px;">
-                        <li><strong>Méditation 20min</strong> (matin ou midi) — Fondation stabilité + clarté</li>
-                        <li><strong>Vigilance Karpman 1 moment:</strong> Identifier 1 pattern victime/bourreau dans ta journée + noter intention consciente</li>
-                        <li><strong>Mantra: "Je suis créative" 3x</strong> — Activation nouvelle identité</li>
-                    </ol>
-                </div>
-
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
-                    <h4 style="color: #333; margin-bottom: 10px;">Par Jour de la Semaine</h4>
-                    <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 14px;">
-                        <li><strong>Lundi:</strong> Méditation 20min + Intention semaine + Mantra</li>
-                        <li><strong>Mardi:</strong> Méditation + Pranayama/respiration + Étude Reiki</li>
-                        <li><strong>Mercredi:</strong> Mouvement créatif (yoga/elliptique) + Vigilance pattern</li>
-                        <li><strong>Jeudi:</strong> Méditation + Relation consciente (sans jugement, sans susceptibilité)</li>
-                        <li><strong>Vendredi:</strong> Reiki practice + Journal réflexif</li>
-                    </ul>
-                </div>
-
-                <div style="background: #e8f5e9; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #4caf50;">
-                    <h4 style="color: #2e7d32; margin-bottom: 10px;">🌟 Bonus Sam-Dim (Si énergie présente)</h4>
-                    <ul style="color: #333; margin-left: 15px; line-height: 1.8; font-size: 14px;">
-                        <li>Défi Reiki (1 soin = victoire)</li>
-                        <li>Formation étude (symboles Reiki)</li>
-                        <li>Mouvement créatif (ski, yoga, danse)</li>
-                    </ul>
-                </div>
-
-                <h2 style="margin-top: 30px;">🔑 Clés de Succès pour Toi</h2>
-                <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 4px solid #FF6B6B; padding: 15px; border-radius: 6px;">
-                    <p style="color: #333; margin: 10px 0; line-height: 1.6; font-size: 14px;">
-                        ✅ <strong>Méditation = ton fondement:</strong> 15-30min quotidienne te ramène à toi-même<br/>
-                        ✅ <strong>Vigilance Karpman = ta conscience:</strong> Chaque jour, voir 1 moment où tu glisses<br/>
-                        ✅ <strong>Nouvelle identité = ton élan:</strong> "Je suis créative" t'élève quand tu doutes<br/>
-                        ✅ <strong>Mouvements créatifs = ta transformation:</strong> Elliptique rapide, ski = alchimie sabotage→créativité<br/>
-                        ✅ <strong>Défi Reiki = ton action:</strong> 5 soins avant 15 mai = utiliser ta nouvelle identité<br/>
-                    </p>
-                </div>
-
-                <h2 style="margin-top: 30px;">📌 Messages Clés</h2>
-                <p style="color: #333; line-height: 1.8; font-size: 14px; margin: 15px 0;">
-                    <strong>1. Volatilité est normale chez toi.</strong> 20% à 100% = c'est ton pattern. Pas une faiblesse, c'est ta nature profonde.
-                    La clé: méditation quotidienne pour créer un plancher.
-                </p>
-                <p style="color: #333; line-height: 1.8; font-size: 14px; margin: 15px 0;">
-                    <strong>2. Triangle Karpman = TON OUTIL CLÉ.</strong> Maintenant que tu vois le pattern, tu peux le transformer.
-                    Chaque jour, une vigilance = une victoire.
-                </p>
-                <p style="color: #333; line-height: 1.8; font-size: 14px; margin: 15px 0;">
-                    <strong>3. Ta créativité est réelle.</strong> DJ gig 3-4h, ski 9km, formation méditation = ce ne sont pas des flukes.
-                    C'est qui tu VRAIMENT es. Protège et cultive cette identité.
-                </p>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p><strong>Coaching Personnalisé — S10 (15-21 mars 2026)</strong></p>
-            <p>Espace sécurisé | Accès personnalisé | Mises à jour hebdomadaires</p>
-            <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px;">
-                Ton parcours S01-S09 montre une femme capable de transformations profondes.
-                S10 est l'occasion de consolider ta nouvelle identité créative.
-            </p>
-        </div>
+        <footer>
+            <p>Dashboard mis à jour le 14 mars 2026 • Données S01-S10 • <a href="../index.html">Retour à l'accueil</a></p>
+            <button class="logout-btn" onclick="logout()">🚪 Déconnexion</button>
+        </footer>
     </div>
 
     <script>
-        // Authentication check
-        function checkAuth() {
-            const token = sessionStorage.getItem('coachToken');
-            const participant = sessionStorage.getItem('coachParticipant');
+        // Data
+        const rawData = {
+            "entries": [
+                {"date": "2026-01-11", "jour_date": "dimanche 11/01/26", "journal": "J'ai répondu aujourd'hui au lieu de demain. Je reviendrai sur la plateforme mardi."},
+                {"date": "2026-02-04", "jour_date": "mercredi 04/02/26", "journal": "Je suis dans la zone de sabotage. J'ai besoin d'aide pour comprendre pourquoi ces élans d'enthousiasme meurent."},
+                {"date": "2026-02-11", "jour_date": "mercredi 11/02/26", "journal": "Période d'incubation. J'ai pris du recul, moins sévère envers moi-même."},
+                {"date": "2026-02-13", "jour_date": "vendredi 13/02/26", "journal": "Prise de conscience Triangle Karpman: je me positionne en victime, puis bourreau. Aide-moi à prendre conscience chaque jour."},
+                {"date": "2026-02-14", "jour_date": "samedi 14/02/26", "journal": "Méditation avec mala, huiles essentielles. Je me sens CRÉATIVE. Transformation de l'état de victime."},
+                {"date": "2026-02-15", "jour_date": "dimanche 15/02/26", "journal": "9 km de ski en solo au soleil. Renaissance d'énergie grâce aux prises de conscience."},
+                {"date": "2026-02-17", "jour_date": "mardi 17/02/26", "journal": "Méditation 20 minutes. Vigilance sur pensées. Attention aux jugements."},
+                {"date": "2026-03-03", "jour_date": "mardi 03/03/26", "journal": "Méditation 20 minutes, connexion lune et nature. Vitalité. Envie de donner des cours de yoga."},
+                {"date": "2026-03-04", "jour_date": "mercredi 04/03/26", "journal": "Nouveau moyen d'aller à 112: elliptique plus rapide. Mantra: Je suis créative."},
+                {"date": "2026-03-05", "jour_date": "jeudi 05/03/26", "journal": "Conversation avec Paul-André plus fluide, moins préconçues. Car je me jugeais moins moi-même."},
+                {"date": "2026-03-07", "jour_date": "samedi 07/03/26", "journal": "Méditation 30 minutes. Transcrit ma méditation pour formation d'enseignante. DJ réussi!"},
+                {"date": "2026-03-10", "jour_date": "mardi 10/03/26", "journal": "Pranayama et méditation. Étude symboles Reiki. Défi: 5 soins avant 15 mai."},
+                {"date": "2026-03-13", "jour_date": "vendredi 13/03/26", "journal": "Transcrit devoir final formation méditation. Doute Sadhguru sur Reiki. Je laisse mûrir ma réflexion."}
+            ]
+        };
 
-            if (!token || !participant || participant !== 'marie') {
-                window.location.href = './index.html';
+        // Switch tabs
+        function switchTab(event, tabName) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'entries') {
+                loadEntries();
             }
+        }
+
+        // Load entries safely
+        function loadEntries() {
+            const entriesList = document.getElementById('entries-list');
+            if (entriesList.children.length > 0) return;
+
+            rawData.entries.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'entry';
+
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'entry-date';
+                dateDiv.textContent = entry.jour_date;
+
+                const textDiv = document.createElement('div');
+                textDiv.className = 'entry-text';
+                textDiv.textContent = entry.journal || '(journal vide)';
+
+                div.appendChild(dateDiv);
+                div.appendChild(textDiv);
+                entriesList.appendChild(div);
+            });
+        }
+
+        // Token verification
+        function verifyToken() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token') || sessionStorage.getItem('coachToken');
+
+            if (!token) {
+                window.location.href = '../index.html';
+                return;
+            }
+
+            fetch('../tokens.json')
+                .then(res => res.json())
+                .then(tokens => {
+                    const validTokens = Object.values(tokens);
+                    if (!validTokens.includes(token)) {
+                        sessionStorage.removeItem('coachToken');
+                        window.location.href = '../index.html';
+                    } else {
+                        sessionStorage.setItem('coachToken', token);
+                    }
+                })
+                .catch(() => {
+                    window.location.href = '../index.html';
+                });
         }
 
         function logout() {
-            if (confirm('Êtes-vous certain de vouloir quitter votre espace coaching?')) {
-                sessionStorage.clear();
-                window.location.href = './index.html';
-            }
+            sessionStorage.removeItem('coachToken');
+            window.location.href = '../index.html';
         }
 
-        function switchTab(tabName, btn) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-
-            document.getElementById(tabName).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        // Check authentication on page load
-        checkAuth();
+        // Verify on load
+        verifyToken();
     </script>
 </body>
 </html>
