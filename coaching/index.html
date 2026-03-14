@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Coaching Personnalisé</title>
+    <title>Coach Family Dashboard — Progression S01-S10</title>
     <style>
         * {
             margin: 0;
@@ -11,261 +11,769 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body.dark-mode {
+            --dark: #0f172a;
+            --light: #1e293b;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
+            transition: background 0.3s ease;
         }
 
-        .auth-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            animation: slideUp 0.6s ease-out;
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .logo h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .logo p {
-            color: #999;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .error {
-            background: #fee;
-            color: #c33;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .error.show {
-            display: block;
-            animation: shake 0.3s ease-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .info {
-            background: #f0f4ff;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #667eea;
-            margin-top: 20px;
-            border-left: 3px solid #667eea;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .spinner {
-            border: 3px solid #e0e0e0;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 0.8s linear infinite;
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .period {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Main Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Member Card */
+        .member-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0.8;
+        }
+
+        .member-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .member-archetype {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .engagement-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .engagement-badge.feu {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .engagement-badge.engagement {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .engagement-badge.fading {
+            background: #fed7aa;
+            color: #92400e;
+        }
+
+        .engagement-badge.ghost {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .emoji-rank {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Stats Grid */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            background: var(--light);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* Progress Ring */
+        .progress-ring-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            height: 140px;
+        }
+
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+
+        .progress-ring-circle {
+            stroke: var(--border);
+            fill: transparent;
+            stroke-width: 8;
+            stroke-dasharray: 339.29;
+            stroke-dashoffset: 0;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .progress-ring-circle.success {
+            stroke: #10b981;
+        }
+
+        .progress-ring-circle.warning {
+            stroke: #f59e0b;
+        }
+
+        .progress-ring-circle.danger {
+            stroke: #ef4444;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        /* Key Insight */
+        .insight {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
+            color: #0369a1;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        body.dark-mode .insight {
+            background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%);
+            color: #7dd3fc;
+        }
+
+        /* Leaderboard */
+        .leaderboard-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table thead {
+            background: var(--light);
+        }
+
+        .leaderboard-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .leaderboard-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background: var(--light);
+        }
+
+        .rank-medal {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .rank-name {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .rank-score {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .rank-trend {
+            font-size: 1.2rem;
+        }
+
+        /* Insights Section */
+        .insights-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+
+        .insight-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .insight-card p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .leaderboard-section,
+            .insights-section {
+                padding: 20px;
+            }
+
+            .leaderboard-table {
+                font-size: 0.9rem;
+            }
+
+            .leaderboard-table th,
+            .leaderboard-table td {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="auth-container">
-        <div class="logo">
-            <div class="logo-icon">🎯</div>
-            <h1>Coaching Personnalisé</h1>
-            <p>Votre espace privé d'évolution</p>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+
+    <div class="container">
+        <header>
+            <h1>🏆 Coach Family Dashboard</h1>
+            <p class="subtitle">Progression et engagement familial</p>
+            <div class="period">S01-S10 (11 janvier - 14 mars 2026)</div>
+        </header>
+
+        <div class="controls">
+            <button class="btn active" onclick="filterView(this, 'all')">Tous les membres</button>
+            <button class="btn" onclick="filterView(this, 'top3')">Top 3</button>
+            <button class="btn" onclick="filterView(this, 'rising')">En montée 📈</button>
+            <button class="btn" onclick="filterView(this, 'support')">Besoin de soutien 💪</button>
         </div>
 
-        <div class="error" id="errorMsg"></div>
-
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p style="margin-top: 15px; color: #999;">Accès en cours...</p>
+        <!-- Member Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <!-- Cards générées par JavaScript -->
         </div>
 
-        <form id="authForm" style="display: block;">
-            <div class="form-group">
-                <label for="token">Clé d'accès</label>
-                <input
-                    type="password"
-                    id="token"
-                    placeholder="Entrez votre code d'accès"
-                    autocomplete="off"
-                />
-            </div>
+        <!-- Leaderboard -->
+        <div class="leaderboard-section">
+            <h2 class="section-title">🏅 Classement S01-S10</h2>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rang</th>
+                        <th>Participant</th>
+                        <th>Taux Succès Moyen</th>
+                        <th>État Actuel</th>
+                        <th>Tendance</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Généré par JavaScript -->
+                </tbody>
+            </table>
+        </div>
 
-            <button type="submit">Accéder à mon espace</button>
-
-            <div class="info">
-                💡 Vous avez reçu votre clé d'accès par email. Entrez-la ci-dessus.
+        <!-- Group Insights -->
+        <div class="insights-section">
+            <h2 class="section-title">✨ Insights Groupe S01-S10</h2>
+            <div class="insights-grid" id="insights-grid">
+                <!-- Généré par JavaScript -->
             </div>
-        </form>
+        </div>
     </div>
 
+    <footer>
+        <p>Dashboard S10 mis à jour le 14 mars 2026 • Données brutes S01-S10 (23-36 entrées par participant) • <a href="https://github.com/Pix4LeP0lich1n4lle/coach-dashboards-family">Repo GitHub</a></p>
+    </footer>
+
     <script>
-        // Load tokens
-        let validTokens = {};
-
-        fetch('./tokens.json')
-            .then(res => res.json())
-            .then(data => {
-                validTokens = data;
-                // Check if already authenticated via URL parameter
-                const params = new URLSearchParams(window.location.search);
-                const urlToken = params.get('token');
-                if (urlToken) {
-                    document.getElementById('token').value = urlToken;
-                }
-            })
-            .catch(err => {
-                console.error('Error loading tokens:', err);
-                showError('Impossible de charger l\'authentification. Veuillez rafraîchir.');
-            });
-
-        document.getElementById('authForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const token = document.getElementById('token').value.trim();
-
-            if (!token) {
-                showError('Veuillez entrer votre clé d\'accès');
-                return;
+        const memberData = {
+            marie: {
+                nom: "Marie Giguère",
+                archetype: "L'Observatrice Souveraine",
+                avg_success_rate: 60,
+                peak_rate: 100,
+                s10_state: "60% ENGAGEMENT (consolidation créative)",
+                entries: 23,
+                key_breakthrough: "Formation méditation finalisation, intégration équipe créative, doute Reiki = sagesse",
+                trend: "stable (consolidation post-peak)",
+                emoji: "✨"
+            },
+            alex: {
+                nom: "Alex Delorey",
+                archetype: "Guerrière de l'Habitude",
+                avg_success_rate: 100,
+                peak_rate: 100,
+                s10_state: "100% ENGAGEMENT (zéro ascenseur)",
+                entries: 36,
+                key_breakthrough: "Escaliers = habitude ancrée, prête pour nouveau domaine, discipline transférable",
+                trend: "stable-high (100% confirmé)",
+                emoji: "🏃‍♀️"
+            },
+            joseph: {
+                nom: "Joseph Delorey",
+                archetype: "Pilier en Reconstruction",
+                avg_success_rate: 80,
+                peak_rate: 80,
+                s10_state: "80% ENGAGEMENT (lucidité clivage)",
+                entries: 11,
+                key_breakthrough: "Reconnaissance extrêmes, sobriété maintenue, taï-chi = antidote clivage, cercle social priorité",
+                trend: "croissant (remontée post-maladie)",
+                emoji: "🧘‍♂️"
+            },
+            chantal: {
+                nom: "Chantal Felteau",
+                archetype: "Pragmatique Invisible",
+                avg_success_rate: 60,
+                peak_rate: 60,
+                s10_state: "60% ENGAGEMENT (équilibre durable)",
+                entries: 14,
+                key_breakthrough: "Shape & strengthening maintenu, repos intentionnel NEW, protection stratégique face saturation",
+                trend: "stable (durabilité > intensité)",
+                emoji: "🛡️"
+            },
+            danielle: {
+                nom: "Danielle Delorey",
+                archetype: "Maîtresse du Calme",
+                avg_success_rate: 100,
+                peak_rate: 100,
+                s10_state: "100% ENGAGEMENT (automatisation rituelle)",
+                entries: 36,
+                key_breakthrough: "Rituels maison-travail automatisés, système nerveux régulé, expansion créative + connexion NEW",
+                trend: "stable-high (100% fondation établie)",
+                emoji: "🧘‍♀️"
             }
+        };
 
-            // Check if token is valid
-            const participant = Object.keys(validTokens).find(p => validTokens[p] === token);
-
-            if (!participant) {
-                showError('Clé d\'accès invalide. Vérifiez que vous avez copié correctement.');
-                document.getElementById('token').value = '';
-                return;
+        const groupInsights = [
+            {
+                title: "🎯 Consolidation S10",
+                text: "Tous les membres sont stables: Marie 60% (créatif), Alex 100% (habitude), Joseph 80% (lucidité), Chantal 60% (protection), Danielle 100% (rituel)."
+            },
+            {
+                title: "🔄 Rituels > Objectifs",
+                text: "Les rituels (Danielle: maison-travail automatisé, Marie: méditation finalisation, Chantal: shape-strengthening) sont le fondement durable."
+            },
+            {
+                title: "💪 Deux Leaders Stables",
+                text: "Alex (100% zéro ascenseur) et Danielle (100% rituels) ancrent le groupe. Discipline + Calme = équilibre familial."
+            },
+            {
+                title: "✨ Transformations en Cours",
+                text: "Marie explore identité créative (équipe, DJ, Reiki). Joseph reconnaît clivage extrêmes (taï-chi solution). Chantal ajoute repos intentionnel."
+            },
+            {
+                title: "🌱 Expansion Créative S11",
+                text: "S10 marque le pivot: fondations établies → exploration créative. Marie + Danielle prêtes pour nouvelle expression."
+            },
+            {
+                title: "🧭 Archétypes en Action",
+                text: "Observatrice Souveraine (Marie) discerne, Guerrière (Alex) consolide, Pilier (Joseph) se rebâtit, Pragmatique (Chantal) dure, Calme (Danielle) crée."
             }
+        ];
 
-            // Valid token - show loading and redirect
-            document.getElementById('authForm').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
+        let currentFilter = 'all';
 
-            // Store token in sessionStorage (not localStorage for security)
-            sessionStorage.setItem('coachToken', token);
-            sessionStorage.setItem('coachParticipant', participant);
+        function createMemberCard(member) {
+            const card = document.createElement('div');
+            card.className = 'member-card';
 
-            // Redirect to personal dashboard
-            setTimeout(() => {
-                window.location.href = `./dashboards/${participant}.html`;
-            }, 800);
-        });
+            const ringOffset = (100 - member.avg_success_rate) * 3.393;
+            const ringClass = member.avg_success_rate >= 70 ? 'success' :
+                              member.avg_success_rate >= 50 ? 'warning' : 'danger';
 
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMsg');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
+            const badgeClass = member.s10_state.includes('FEU') ? 'feu' :
+                               member.s10_state.includes('ENGAGEMENT') ? 'engagement' :
+                               member.s10_state.includes('FADING') ? 'fading' : 'ghost';
 
-            setTimeout(() => {
-                errorDiv.classList.remove('show');
-            }, 5000);
+            card.innerHTML = `
+                <div class="member-header">
+                    <div class="member-info">
+                        <div class="member-name">${member.nom}</div>
+                        <div class="member-archetype">${member.archetype}</div>
+                        <div class="engagement-badge ${badgeClass}">
+                            ${member.s10_state}
+                        </div>
+                    </div>
+                    <div class="emoji-rank">${member.emoji}</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Taux Moyen S01-S10</div>
+                        <div class="stat-value">${Math.round(member.avg_success_rate)}%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Pic (S08)</div>
+                        <div class="stat-value">${member.peak_rate}%</div>
+                    </div>
+                </div>
+
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" viewBox="0 0 120 120">
+                        <circle class="progress-ring-circle ${ringClass}" cx="60" cy="60" r="54" style="stroke-dashoffset: ${ringOffset}"></circle>
+                    </svg>
+                    <div class="progress-text">${Math.round(member.avg_success_rate)}%</div>
+                </div>
+
+                <div class="insight">
+                    <strong>⭐ Percée clé:</strong> ${member.key_breakthrough}
+                </div>
+            `;
+
+            return card;
         }
 
-        // Optional: Auto-focus on token field
-        document.getElementById('token').focus();
+        function getFilteredMembers() {
+            let members = Object.values(memberData)
+                .sort((a, b) => b.avg_success_rate - a.avg_success_rate);
+
+            if (currentFilter === 'all') {
+                return members;
+            } else if (currentFilter === 'top3') {
+                return members.slice(0, 3);
+            } else if (currentFilter === 'rising') {
+                // Membres avec tendance positive (trend contient "rising" ou "volatile")
+                return members.filter(m =>
+                    m.trend.includes('rising') ||
+                    m.trend.includes('volatile') ||
+                    (m.s10_state.includes('ENGAGEMENT') && m.avg_success_rate < 70)
+                );
+            } else if (currentFilter === 'support') {
+                // Membres avec état FADING ou GHOST
+                return members.filter(m =>
+                    m.s10_state.includes('FADING') ||
+                    m.s10_state.includes('GHOST')
+                );
+            }
+            return members;
+        }
+
+        function renderDashboard() {
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            const members = getFilteredMembers();
+
+            if (members.length === 0) {
+                const emptyMsg = document.createElement('div');
+                emptyMsg.style.gridColumn = '1 / -1';
+                emptyMsg.style.textAlign = 'center';
+                emptyMsg.style.padding = '40px';
+                emptyMsg.style.color = 'var(--text-secondary)';
+                emptyMsg.textContent = 'Aucun membre dans cette catégorie.';
+                dashboard.appendChild(emptyMsg);
+                return;
+            }
+
+            members.forEach(member => {
+                dashboard.appendChild(createMemberCard(member));
+            });
+        }
+
+        function renderLeaderboard() {
+            const leaderboard = document.getElementById('leaderboard-body');
+            const members = Object.values(memberData)
+                .sort((a, b) => b.avg_success_rate - a.avg_success_rate);
+
+            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+
+            members.forEach((member, index) => {
+                const trend = member.avg_success_rate >= 70 ? '📈' :
+                              member.avg_success_rate >= 50 ? '➡️' : '📉';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="rank-medal">${medals[index]}</span></td>
+                    <td><span class="rank-name">${member.nom}</span></td>
+                    <td><span class="rank-score">${Math.round(member.avg_success_rate)}%</span></td>
+                    <td>${member.s10_state}</td>
+                    <td><span class="rank-trend">${trend}</span></td>
+                `;
+                leaderboard.appendChild(row);
+            });
+        }
+
+        function renderInsights() {
+            const grid = document.getElementById('insights-grid');
+            grid.innerHTML = '';
+
+            groupInsights.forEach(insight => {
+                const card = document.createElement('div');
+                card.className = 'insight-card';
+                card.innerHTML = `
+                    <h3>${insight.title}</h3>
+                    <p>${insight.text}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateThemeToggleButton();
+        }
+
+        function updateThemeToggleButton() {
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        function filterView(btn, view) {
+            document.querySelectorAll('.controls .btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = view;
+            renderDashboard();
+        }
+
+        // Initialiser
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+            updateThemeToggleButton();
+
+            renderDashboard();
+            renderLeaderboard();
+            renderInsights();
+        });
     </script>
 </body>
 </html>
