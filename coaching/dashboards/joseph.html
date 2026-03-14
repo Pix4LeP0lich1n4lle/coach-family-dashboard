@@ -3,735 +3,482 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Coaching - Joseph Delorey</title>
+    <title>Joseph Delorey — Dashboard Complet S06-S10</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #a855f7;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
         }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f8f9fa;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 15px;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
+        .container { max-width: 100%; margin: 0 auto; }
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-        }
-
-        .header-content h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .header-content p {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            padding: 12px 20px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-weight: 600;
-            color: #999;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .tab-btn.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        .tab-btn:hover {
-            color: #667eea;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .card h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 8px;
             text-align: center;
-        }
-
-        .stat-box.accent {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-bottom: 30px;
             color: white;
+            animation: slideDown 0.6s ease-out;
         }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 5px;
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+        .subtitle { font-size: 1rem; opacity: 0.95; margin-bottom: 5px; }
+        .date-info { font-size: 0.85rem; opacity: 0.8; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
         }
-
-        .stat-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.8;
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
         }
-
-        .progress-ring {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+        .stat-card:hover { background: rgba(255,255,255,0.25); transform: translateY(-3px); }
+        .stat-label { font-size: 0.7rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .stat-value { font-size: 2rem; font-weight: 800; }
+        .tabs-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out 0.4s both;
         }
-
-        .progress-ring-circle {
-            stroke: #e0e0e0;
-            fill: transparent;
-            stroke-width: 8;
-            stroke-linecap: round;
-            transform: scaleX(-1) rotate(-90deg);
-            transform-origin: 50% 50%;
-        }
-
-        .progress-ring-circle.filled {
-            stroke: url(#gradient);
-            stroke-dasharray: 314;
-            stroke-dashoffset: calc(314 - 314 * var(--progress, 0));
-            transition: stroke-dashoffset 0.6s ease;
-        }
-
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline-item {
+        .tabs-header {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-left: 50px;
-            position: relative;
+            gap: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            background: #667eea;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 2px #667eea;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 12px;
-            width: 2px;
-            height: calc(100% + 8px);
-            background: #e0e0e0;
-        }
-
-        .timeline-item:last-child::after {
-            display: none;
-        }
-
-        .timeline-content {
-            flex: 1;
-        }
-
-        .timeline-date {
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: 15px 12px;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #667eea;
-            font-size: 14px;
-            margin-bottom: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
         }
-
-        .timeline-title {
+        .tab-btn:hover { background: rgba(255,255,255,0.1); }
+        .tab-btn.active { background: rgba(255,255,255,0.15); border-bottom: 3px solid white; }
+        .tabs-content { padding: 25px; }
+        .tab-pane { display: none; animation: fadeIn 0.4s ease-out; }
+        .tab-pane.active { display: block; }
+        .section { margin-bottom: 30px; }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-subtitle {
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
+            color: var(--text-secondary);
+            margin: 20px 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
         }
-
-        .timeline-description {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
         }
-
+        th {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 700;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:hover { background: #f8fafc; }
+        .entry {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .entry:hover { border-left-color: var(--secondary); box-shadow: 0 4px 12px rgba(139,92,246,0.1); }
+        .entry-date { font-weight: 700; color: var(--primary); font-size: 0.8rem; margin-bottom: 4px; }
+        .entry-text { color: var(--text-primary); line-height: 1.5; font-size: 0.9rem; word-wrap: break-word; white-space: pre-wrap; }
+        .info-block {
+            background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .info-label { font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-value { color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; white-space: pre-wrap; }
         .badge {
             display: inline-block;
-            padding: 4px 10px;
-            background: #f0f4ff;
-            color: #667eea;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin: 5px 5px 5px 0;
-        }
-
-        .badge.energy {
-            background: #fff4e6;
-            color: #ff9f43;
-        }
-
-        .badge.growth {
-            background: #e8f5e9;
-            color: #4caf50;
-        }
-
-        .entry-quote {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #666;
-            font-style: italic;
-            margin: 10px 0;
-        }
-
-        .objectives-list {
-            list-style: none;
-        }
-
-        .objectives-list li {
-            padding: 12px;
-            background: #f8f9fa;
-            margin: 10px 0;
-            border-radius: 6px;
-            border-left: 4px solid #667eea;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .objectives-list li::before {
-            content: '✓';
-            color: #4caf50;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .status-badge {
-            display: inline-block;
             padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 4px 4px 4px 0;
         }
-
-        .status-engagement {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .status-ghost {
-            background: #f3e5f5;
-            color: #6a1b9a;
-        }
-
-        .status-fading {
-            background: #fff3e0;
-            color: #e65100;
-        }
-
-        .archetype-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .badge-engagement { background: #dcfce7; color: #15803d; }
+        .badge-feu { background: #fed7aa; color: #92400e; }
+        .badge-fading { background: #fde2e4; color: #9f1239; }
+        .badge-ghost { background: #f3e8ff; color: #6b21a8; }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
             color: white;
-            padding: 20px;
+        }
+        footer a { color: white; text-decoration: underline; margin: 0 4px; }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
         }
-
-        .archetype-box h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .archetype-box p {
-            font-size: 13px;
-            line-height: 1.5;
-            opacity: 0.9;
+        .logout-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.6rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 10px; }
+            .tab-btn { padding: 12px 10px; font-size: 0.75rem; }
+            .tabs-content { padding: 15px; }
+            .section-title { font-size: 1.1rem; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 8px 5px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="header-content">
-                <h1>Joseph Delorey 🎯</h1>
-                <p>Pilier en Reconstruction — Espace de coaching personnalisé</p>
-            </div>
-            <button class="logout-btn" onclick="logout()">Quitter</button>
+            <h1>🧙‍♂️ Joseph Delorey</h1>
+            <p class="subtitle">Pilier en Reconstruction</p>
+            <p class="date-info">Dashboard Complet S06-S10 • 16 fév - 14 mar 2026</p>
         </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('overview', this)">📊 Vue d'ensemble</button>
-            <button class="tab-btn" onclick="switchTab('progression', this)">📈 Progression S06-S10</button>
-            <button class="tab-btn" onclick="switchTab('objectives', this)">🎯 Objectifs S10</button>
-            <button class="tab-btn" onclick="switchTab('entries', this)">📝 Entrées Journelles</button>
-            <button class="tab-btn" onclick="switchTab('coaching', this)">💡 Plan Coaching</button>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Taux Succès</div>
+                <div class="stat-value">80%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Entrées</div>
+                <div class="stat-value">11</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">État</div>
+                <div class="stat-value">ENGAGEMENT</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Data</div>
+                <div class="stat-value">4 semaines</div>
+            </div>
         </div>
 
-        <!-- TAB: OVERVIEW -->
-        <div id="overview" class="tab-content active">
-            <div class="card">
-                <div class="archetype-box">
-                    <h3>🏛️ Pilier en Reconstruction</h3>
-                    <p>
-                        Âge: 23 ans | Réinscription: 15 février 2026 (S06)<br/>
-                        Fondation: Sobriété. Mantra: "24h à la fois"<br/>
-                        Domaines clés: Structure 24h, méditation, fiabilité professionnelle
-                    </p>
-                </div>
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchTab(event, 'overview')">📊 Vue d'Ensemble</button>
+                <button class="tab-btn" onclick="switchTab(event, 'evolution')">📈 Évolution S06-S10</button>
+                <button class="tab-btn" onclick="switchTab(event, 'patterns')">🔄 Patterns</button>
+                <button class="tab-btn" onclick="switchTab(event, 'entries')">📝 Entrées Brutes</button>
+                <button class="tab-btn" onclick="switchTab(event, 'rapport')">📋 Rapport</button>
+            </div>
 
-                <h2>📊 Statistiques S06-S09</h2>
-                <div class="stat-grid">
-                    <div class="stat-box accent">
-                        <div class="stat-value">40%</div>
-                        <div class="stat-label">Taux Moyen</div>
-                    </div>
-                    <div class="stat-box accent">
-                        <div class="stat-value">9</div>
-                        <div class="stat-label">Entrées</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">60%</div>
-                        <div class="stat-label">Peak (S06, S08)</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">20%</div>
-                        <div class="stat-label">Lowest (S07, S09)</div>
-                    </div>
-                </div>
-
-                <h2 style="margin-top: 20px;">État Actuel S09</h2>
-                <div style="margin-bottom: 15px;">
-                    <span class="status-badge status-ghost">🔴 GHOST (20%)</span>
-                    <p style="margin-top: 10px; color: #666; font-size: 14px;">
-                        Gastro (lundi-mardi) + surcharge objectifs. État naturel de récupération.
-                    </p>
-                </div>
-
-                <h2>🔑 Moments Clés</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S06 - 19 février</div>
-                            <div class="timeline-title">✨ Réinscription avec clarté</div>
-                            <div class="timeline-description">
-                                "Je suis fier de moi. La conso ne m'apaise plus, elle m'anxieuse."
-                                <span class="badge growth">Transformation profonde</span>
-                            </div>
+            <div class="tabs-content">
+                <!-- TAB: OVERVIEW -->
+                <div id="overview" class="tab-pane active">
+                    <div class="section">
+                        <h2 class="section-title">💡 Profil & Archétype</h2>
+                        <div class="info-block">
+                            <div class="info-label">Archétype</div>
+                            <div class="info-value">Pilier en Reconstruction | 23 ans | Sobriété + estime personnelle + structure</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Focus Primaire</div>
+                            <div class="info-value">Sobriété comme fondation. Reconstruction estime personnelle avec structure rigide (Réveil / Lunch / Dodo)</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Mantra</div>
+                            <div class="info-value">"24h à la fois" — One day at a time. Lucidité profonde + reconnaissance clivage extrêmes</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">⚠️ Note</div>
+                            <div class="info-value">Données filtrées strictement (jdelorey02@proton.me). Réinscription 15 fév 2026 — Nouvelles résolutions</div>
                         </div>
                     </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S08 - 2 mars</div>
-                            <div class="timeline-title">🌅 Structure 24h ancrée</div>
-                            <div class="timeline-description">
-                                "6h45 réveil tous les jours. Mon 24h commence bien."
-                                <span class="badge">Système solidifié</span>
-                            </div>
+                    <div class="section">
+                        <h2 class="section-title">🌟 Thèmes Clés</h2>
+                        <div class="info-block">
+                            <div class="info-value">Lucidité profonde de son clivage (jongle souvent entre extrêmes). Reconnaissance que consommation = fuite perpétuelle d'un inconfort. Demande support: Taï-chi groupe + activités sociales. Besoin d'appartenance + reconnaissance batent de l'aile</div>
                         </div>
                     </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">S09 - 12 mars</div>
-                            <div class="timeline-title">🎯 Self-awareness mature</div>
-                            <div class="timeline-description">
-                                "3 objectifs/jour c'est trop. Je propose: 1 méditation + journal."
-                                <span class="badge energy">Boundary setting intelligent</span>
-                            </div>
+                    <div class="section">
+                        <h2 class="section-title">📊 Statistiques (S06-S10)</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Métrique</th>
+                                    <th>Valeur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total entrées</td>
+                                    <td><strong>11 (dense, introspective)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Période couverte</td>
+                                    <td><strong>4 semaines (16 fév - 14 mar 2026)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Taux succès moyen</td>
+                                    <td><strong>80% (ENGAGEMENT élevé)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Entrées par jour moyen</td>
+                                    <td><strong>2-3 dense reflections</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Engagement State</td>
+                                    <td><strong>ENGAGEMENT + ##COACH## requests</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB: EVOLUTION -->
+                <div id="evolution" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">📈 Progression S06-S10</h2>
+                        <div class="info-block">
+                            <div class="info-label">S06 (16-17 fév): Initial Introspection</div>
+                            <div class="info-value">"Je t'écrirai d'avantage demain" | "24h à la fois" — Setting baseline. Cautious but present</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">S07 (19-20 fév): Lucidity + Breakthrough</div>
+                            <div class="info-value">"Je suis fier de moi, je suis efficace au travail" | Recognition that consommation doesn't help = mindshift. "Chaque jour qui passe me rapproche du Moi ultime"</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">S08 (23 fév): Reality Check</div>
+                            <div class="info-value">"Pas dormi assez, j'ai déjeuner et manger un subway" — Self-awareness + self-compassion. Recognizing struggle WITHOUT shame</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">S09 (2-3 mar): Structure Implementation 💪</div>
+                            <div class="info-value">Heures de réveil 6h45, petit déjeuner tranquille, configuration agenda pour structurer intelligemment. "Je suis sobre, mon 24h commence bien". Mantra 3x affirmation</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">S10 (4 mar - 14 mar): Continued Growth + Needs</div>
+                            <div class="info-value">Gastro recovery. "3 objectifs par jour c'est beaucoup". Request: 1 meditation movement + daily journal. ##COACH## alert: Help with calendar management (Proton Calendar)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: PATTERNS -->
+                <div id="patterns" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">💎 Patterns Clés</h2>
+
+                        <h3 class="section-subtitle">🧠 Lucidity + Self-Knowledge</h3>
+                        <div class="info-block">
+                            <div class="info-label">Pattern</div>
+                            <div class="info-value">Recognizes clivage extrêmes (swings between extremes). Knows consommation = escapism, not solution. "Je connais mon pattern, c'est un loop"</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Strength</div>
+                            <div class="info-value">Deep introspection. Not denial. Willing to name the struggle</div>
+                        </div>
+
+                        <h3 class="section-subtitle">⚒️ Structure = Anchor</h3>
+                        <div class="info-block">
+                            <div class="info-label">Evidence</div>
+                            <div class="info-value">6h45 wake time configured. "Configurée mon agenda pour structurer mes journées plus intelligemment". Réveil/Lunch/Dodo = rigid framework</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Why Works</div>
+                            <div class="info-value">External structure supports internal struggle. Reduces decision fatigue when willpower weak</div>
+                        </div>
+
+                        <h3 class="section-subtitle">❤️ Self-Compassion Through Struggle</h3>
+                        <div class="info-block">
+                            <div class="info-label">Evidence</div>
+                            <div class="info-value">Gastro: rested without shame. Didn't force. "Déjà mieux que rien" (subway meal). Realistic with himself</div>
+                        </div>
+
+                        <h3 class="section-subtitle">🎯 Help-Seeking (Growth Sign)</h3>
+                        <div class="info-block">
+                            <div class="info-label">##COACH## Requests</div>
+                            <div class="info-value">"Help me manage calendar better" | "Load objectives into Proton Calendar" = strategic, specific asks. Not avoidance, problem-solving</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">Social Needs</div>
+                            <div class="info-value">"My need to belong, be recognized, hitting rock bottom lately". Wants Taï-chi group + activities within 50km radius</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: ENTRIES -->
+                <div id="entries" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">📝 Toutes les Entrées (S06-S10)</h2>
+                        <div id="entries-list"></div>
+                    </div>
+                </div>
+
+                <!-- TAB: RAPPORT -->
+                <div id="rapport" class="tab-pane">
+                    <div class="section">
+                        <h2 class="section-title">📋 Plan S10+ (Consolidate + Support Social Needs)</h2>
+                        <div class="info-block">
+                            <div class="info-label">Status Actuel</div>
+                            <div class="info-value">80% engagement, strong introspection, structure establishing. Now: reduce objective load + support social connection</div>
+                        </div>
+
+                        <h3 class="section-subtitle">Immédiate (Lighten Load)</h3>
+                        <div class="info-block">
+                            <div class="info-label">❌ Reduce from 3 → 1 objective/day</div>
+                            <div class="info-value">"3 objectifs c'est beaucoup" — Respect his capacity. One meditation movement + daily journal = manageable, supportive</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">✓ Continue Structure</div>
+                            <div class="info-value">6h45 wake, structured meals, sleep schedule. This = therapeutic. Support it</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">✓ Journal Quotidien</div>
+                            <div class="info-value">Evening reflection (how day went). Lighter than current, but maintains introspection</div>
+                        </div>
+
+                        <h3 class="section-subtitle">Growth (S10+)</h3>
+                        <div class="info-block">
+                            <div class="info-label">🧘 Taï-Chi Group Class</div>
+                            <div class="info-value">Addresses: mind-body practice + social connection + community belonging. Search Beauce region 50km radius</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">👥 Social Activities</div>
+                            <div class="info-value">Workshops/courses/events in region (Ste-Marie de Beauce + Vallée area). Support need for recognition + belonging</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">📅 Calendar Integration</div>
+                            <div class="info-value">Help implement in Proton Calendar (his request). Meditation movement time + journal time blocked</div>
+                        </div>
+
+                        <h3 class="section-subtitle">Support (Ongoing)</h3>
+                        <div class="info-block">
+                            <div class="info-label">❤️ Acknowledge Struggle</div>
+                            <div class="info-value">Consommation = old pattern. Taï-chi + social = new pattern. Replace, don't suppress</div>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-label">💪 Celebrate Wins</div>
+                            <div class="info-value">6h45 wake, structured days, efficacité at work = REAL. Build on these strengths</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB: PROGRESSION -->
-        <div id="progression" class="tab-content">
-            <div class="card">
-                <h2>📈 Courbe d'Évolution S06-S09</h2>
-                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #667eea; background: #f8f9fa;">
-                            <th style="padding: 10px; text-align: left; font-weight: 600;">Semaine</th>
-                            <th style="padding: 10px; text-align: center; font-weight: 600;">Dates</th>
-                            <th style="padding: 10px; text-align: center; font-weight: 600;">Entrées</th>
-                            <th style="padding: 10px; text-align: center; font-weight: 600;">Taux</th>
-                            <th style="padding: 10px; text-align: center; font-weight: 600;">État</th>
-                            <th style="padding: 10px; text-align: left; font-weight: 600;">Domaines</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px;">S06</td>
-                            <td style="padding: 10px; text-align: center;">15-21 fév</td>
-                            <td style="padding: 10px; text-align: center;">3</td>
-                            <td style="padding: 10px; text-align: center;"><strong>60%</strong></td>
-                            <td style="padding: 10px; text-align: center;"><span class="status-badge status-engagement">ENGAGEMENT</span></td>
-                            <td style="padding: 10px;">Sobriété, fiabilité</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px;">S07</td>
-                            <td style="padding: 10px; text-align: center;">22-28 fév</td>
-                            <td style="padding: 10px; text-align: center;">1</td>
-                            <td style="padding: 10px; text-align: center;"><strong>20%</strong></td>
-                            <td style="padding: 10px; text-align: center;"><span class="status-badge status-ghost">GHOST</span></td>
-                            <td style="padding: 10px;">Sommeil struggle</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #e0e0e0;">
-                            <td style="padding: 10px;">S08</td>
-                            <td style="padding: 10px; text-align: center;">1-7 mar</td>
-                            <td style="padding: 10px; text-align: center;">4</td>
-                            <td style="padding: 10px; text-align: center;"><strong>60%</strong></td>
-                            <td style="padding: 10px; text-align: center;"><span class="status-badge status-engagement">ENGAGEMENT</span></td>
-                            <td style="padding: 10px;">Structure 24h, méditation</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px;">S09</td>
-                            <td style="padding: 10px; text-align: center;">8-14 mar</td>
-                            <td style="padding: 10px; text-align: center;">1</td>
-                            <td style="padding: 10px; text-align: center;"><strong>20%</strong></td>
-                            <td style="padding: 10px; text-align: center;"><span class="status-badge status-ghost">GHOST</span></td>
-                            <td style="padding: 10px;">Gastro + overload</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h2 style="margin-top: 30px;">🔄 Phases d'Intégration</h2>
-                <div style="margin-top: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Phase 1: Clarté (S06)</h3>
-                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
-                        Réinscription avec prise de conscience profonde: la consommation qui t'apaisait avant t'anxieuse maintenant.
-                        Identification de ton identité plus haute ("Moi ultime").
-                    </p>
-
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Phase 2: Lutte (S07)</h3>
-                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
-                        Sommeil variable, reprise post-addiction difficile. Phase naturelle mais exigeante.
-                    </p>
-
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Phase 3: Consolidation (S08)</h3>
-                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
-                        Structure 24h systématique (6h45 réveil quotidien), méditation ancrée, mantra en place.
-                    </p>
-
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Phase 4: Récupération (S09)</h3>
-                    <p style="color: #666; font-size: 14px;">
-                        Gastro naturelle, mais surtout: tu as la maturité de dire "3 objectifs c'est trop, je propose 1 méditation + journal."
-                        <strong>Cela démontre une conscience de tes limites.</strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: OBJECTIVES -->
-        <div id="objectives" class="tab-content">
-            <div class="card">
-                <h2>🎯 Objectifs Personnalisés S10</h2>
-                <p style="color: #666; margin-bottom: 20px; font-size: 14px;">
-                    <strong>Charge:</strong> 1-2 objectifs/jour MAXIMUM<br/>
-                    <strong>Priorité:</strong> Santé > Objectifs (post-gastro récupération)<br/>
-                    <strong>Durée:</strong> Lun-Ven
-                </p>
-
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-                    <h3 style="color: #333; margin-bottom: 10px;">✅ Quotidien (Tous les jours)</h3>
-                    <ol class="objectives-list">
-                        <li style="list-style: none; display: block;">
-                            <strong style="color: #667eea;">1. Méditation en Mouvement (10-15 min)</strong><br/>
-                            <span style="color: #999; font-size: 13px;">Format: guidée avec instructions + images pour faire correctement</span>
-                        </li>
-                        <li style="list-style: none; display: block; margin-top: 12px;">
-                            <strong style="color: #667eea;">2. Journal Soir (5 min)</strong><br/>
-                            <span style="color: #999; font-size: 13px;">Simple: Comment c'est passé ta journée? Sentiments? Victoires?</span>
-                        </li>
-                    </ol>
-                </div>
-
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-                    <h3 style="color: #333; margin-bottom: 10px;">🌟 Bonus si Énergie (Non-Obligatoire)</h3>
-                    <ul class="objectives-list">
-                        <li>Mantra Matin 3x: "Je suis rempli d'une vitalité nouvelle"</li>
-                        <li>Respiration 4-4-8: Avant dodo si anxiété</li>
-                        <li>Marche 15min: Si santé OK et énergie présente</li>
-                    </ul>
-                </div>
-
-                <div style="background: #fff3e0; padding: 15px; border-radius: 6px;">
-                    <h3 style="color: #e65100; margin-bottom: 10px;">☀️ Samedi-Dimanche</h3>
-                    <p style="color: #666; font-size: 14px;">
-                        Repos conscient. Santé prioritaire. Pas d'objectifs forcés. Méditation si inspire, pas obligation.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: ENTRIES -->
-        <div id="entries" class="tab-content">
-            <div class="card">
-                <h2>📝 Tes 9 Entrées Journelles</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Lundi 16 février (S06)</div>
-                            <div class="timeline-title">Première réinscription</div>
-                            <div class="entry-quote">Je t'écrirais d'avantage demain</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Mardi 17 février (S06)</div>
-                            <div class="timeline-title">Patience avec soi-même</div>
-                            <div class="entry-quote">Je vais en dire plus demain lorsque que j'aurais le temps, 24h a la fois</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Jeudi 19 février (S06) 🌟</div>
-                            <div class="timeline-title"><strong>Transformation profonde</strong></div>
-                            <div class="entry-quote">Je suis fier de moi, je suis efficace au travail et je suis un employé sur qui on peut compter. La conso ne m'apporte plus l'effet qui autrefois m'apaisais, même que c'est l'effet contraire, elle me rend anxieux. Chaque jour qui passe me rapproche du Moi ultime, merci de faire partit de ma vie. Je t'aime, Joseph</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Lundi 23 février (S07)</div>
-                            <div class="timeline-title">Sommeil struggle</div>
-                            <div class="entry-quote">Pas dormi assez ce weekend. Je m'apprête à ranger mon téléphone, faire mon lavage & dormir. J'ai déjeuner et manger un subway a 20h. Déjà mieux que rien.</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Lundi 2 mars (S08) 🌅</div>
-                            <div class="timeline-title"><strong>Structure 24h ancrée</strong></div>
-                            <div class="entry-quote">Heures de réveil 6h45, petit déjeuner tranquille. Au boulot depuis 9h, en pause dîner. Je mange une salade verte et j'me sent bien. J'ai configurée mon agenda pour structurer mes journées plus intelligement. Je suis sobre, mon 24h commence bien. Il fait soleil</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Mardi 3 mars (S08)</div>
-                            <div class="timeline-title">Méditation et purification</div>
-                            <div class="entry-quote">Je me suis coucher a 22h30 après avoir pris une douche et méditer en purifiant mon espace</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Mardi 3 mars (S08)</div>
-                            <div class="timeline-title">Mantra et intention</div>
-                            <div class="entry-quote">
-                                Mantra 3x: Je suis rempli d'une vitalité nouvelle<br/><br/>
-                                Priorité du jour: Demander a la lune et les énergies de l'univers de me guider a travers cette nouvelle journée.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Mercredi 4 mars (S08)</div>
-                            <div class="timeline-title">Impact professionnel</div>
-                            <div class="entry-quote">J'ai été efficace lorsque j'ai former le nouveau! Je veux plus de défis/objectifs sur la méditation et le maintenance de mon âme</div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Jeudi 12 mars (S09) 🎯</div>
-                            <div class="timeline-title"><strong>Self-awareness intelligent</strong></div>
-                            <div class="entry-quote">Je me suis levé a 6h45 tout les jours depuis lundi. J'ai eu la gastro lundi & mardi donc j'était en mode repos. Je trouve que 3 objectifs par jour c'est beaucoup. J'ai besoin d'y aller slow. Voici ce que je propose: 1 exercice de méditation en mouvement (inclure dans mail la façon de bien le faire avec image) & le soir remplir mon journal quotidien</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: COACHING -->
-        <div id="coaching" class="tab-content">
-            <div class="card">
-                <h2>💡 Plan Coaching S10+</h2>
-
-                <div class="archetype-box" style="margin-bottom: 20px;">
-                    <h3>Votre Force Principale</h3>
-                    <p>
-                        🎯 <strong>Self-awareness:</strong> Tu sais reconnaitre tes limites et les communiquer.<br/>
-                        🔄 <strong>Structure 24h:</strong> 6h45 réveil quotidien = ton fondement solide.<br/>
-                        💪 <strong>Sobriété:</strong> Transformation profonde = ta plus grande victoire.<br/>
-                        🌟 <strong>Fiabilité pro:</strong> "Employé sur qui on peut compter" = nouvelle identité.
-                    </p>
-                </div>
-
-                <h3 style="color: #333; margin-bottom: 15px;">🔴 Points d'Attention</h3>
-                <div style="background: #fff3e0; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-                    <ul style="color: #666; font-size: 14px;">
-                        <li style="margin-bottom: 8px;">🩹 <strong>Santé fragile post-addiction:</strong> Sommeil variable, récupération lente. Normal et attendu.</li>
-                        <li style="margin-bottom: 8px;">📊 <strong>Données limitées (9 entrées):</strong> Plus de journaling = meilleur suivi. Cible: 5-7 entrées/semaine.</li>
-                        <li>⚠️ <strong>Cycle ENGAGEMENT ↔ GHOST:</strong> Alterne entre 60% et 20%. Chercher stabilité à 40-50%.</li>
-                    </ul>
-                </div>
-
-                <h3 style="color: #333; margin-bottom: 15px;">🎯 Stratégie S10</h3>
-                <div style="background: #e8f5e9; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
-                    <h4 style="color: #2e7d32; margin-bottom: 10px;">✅ Immédiat (Santé)</h4>
-                    <p style="color: #333; font-size: 14px;">Récupération post-gastro prioritaire. Pas de pression. Écoute ton corps.</p>
-
-                    <h4 style="color: #2e7d32; margin-bottom: 10px; margin-top: 15px;">✅ Court Terme (Consolidation)</h4>
-                    <ul style="color: #333; font-size: 14px; margin-left: 15px;">
-                        <li>Structure 24h: Continuer 6h45 réveil (ne pas abandonner)</li>
-                        <li>Méditation: Quotidienne, en mouvement pour accessibilité</li>
-                        <li>Journal: Soir simple (5 min résumé)</li>
-                    </ul>
-
-                    <h4 style="color: #2e7d32; margin-bottom: 10px; margin-top: 15px;">✅ Opportunité (Croissance)</h4>
-                    <ul style="color: #333; font-size: 14px; margin-left: 15px;">
-                        <li>Fiabilité professionnelle: Capitaliser (déjà en place!)</li>
-                        <li>Sobriété: Fondation sécurisée, continuer vigilance</li>
-                        <li>Spiritualité: Explorer méditation, intention-setting</li>
-                    </ul>
-                </div>
-
-                <h3 style="color: #333; margin-bottom: 15px;">📌 Notes Importantes</h3>
-                <div style="border-left: 4px solid #667eea; padding-left: 15px; color: #666; font-size: 14px;">
-                    <p style="margin-bottom: 10px;">
-                        <strong>Early Recovery = Fragile:</strong> Tu es 4 semaines post-réinscription. La récupération n'est pas linéaire.
-                        Sois patient avec toi-même.
-                    </p>
-                    <p style="margin-bottom: 10px;">
-                        <strong>Sobriété = Fondation d'Or:</strong> Ta clarté que la conso t'anxieuse (et plus apaisante) est énorme.
-                        Protège cette conscience.
-                    </p>
-                    <p style="margin-bottom: 10px;">
-                        <strong>Mantra Puissant:</strong> "Moi ultime" + "24h à la fois" sont tes boussoles. Reviens-y quand tu doutes.
-                    </p>
-                    <p>
-                        <strong>Entrées = Outils de Suivi:</strong> Plus tu écris, mieux on peut voir tes patterns et te soutenir.
-                        Cible: journal soir rapide (5-10 lignes).
-                    </p>
-                </div>
-            </div>
-        </div>
+        <footer>
+            <p>Dashboard mis à jour le 14 mars 2026 • Données S06-S10 (16 fév - 14 mar) • <a href="../index.html">Retour à l'accueil</a></p>
+            <button class="logout-btn" onclick="logout()">🚪 Déconnexion</button>
+        </footer>
     </div>
 
     <script>
-        // Authentication check
-        function checkAuth() {
-            const token = sessionStorage.getItem('coachToken');
-            const participant = sessionStorage.getItem('coachParticipant');
+        const rawData = {
+            "entries": [
+                {"date": "2026-02-16", "jour_date": "lundi 16/02/26", "journal": "Je t'écrirai d'avantage demain"},
+                {"date": "2026-02-17", "jour_date": "mardi 17/02/26", "journal": "Je vais en dire plus demain lorsque que j'aurais le temps, 24h a la fois"},
+                {"date": "2026-02-19", "jour_date": "jeudi 19/02/26", "journal": "Je suis fier de moi, je suis efficace au travail et je suis un employé sur qui on peut compter. La conso ne m'apporte plus l'effet qui autrefois m'apaisais, même que c'est l'effet contraire, elle me rend anxieux. Chaque jour qui passe me rapproche du Moi ultime, merci de faire partit de ma vie. Je t'aime, Joseph"},
+                {"date": "2026-02-23", "jour_date": "lundi 23/02/26", "journal": "Pas dormi assez ce weekend, il es 21h maintenant, je m'apprête a ranger mon téléphone, faire mon lavage & dormir. J'ai déjeuner et manger un subway a 20h. Déjà mieux que rien."},
+                {"date": "2026-03-02", "jour_date": "lundi 02/03/26", "journal": "Heures de réveil 6h45, petit déjeuner tranquille. Au boulot depuis 9h, présentement en pause dîner. (13h36)  Je mange une salade verte et j'me sent bien. J'ai configurée mon agenda pour structurer mes journées plus intelligemment. Je suis sobre, mon 24h commence bien. Il fait soleil"},
+                {"date": "2026-03-03", "jour_date": "mardi 03/03/26", "journal": "Pour complété les donner d'hier (2mars2026) je me suis coucher a 22h30 après avoir pris une douche et méditer en purifiant mon espace"},
+                {"date": "2026-03-03", "jour_date": "mardi 03/03/26", "journal": "Mantra 3x :\nJe suis rempli d'une vitalité nouvelle\nJe suis rempli d'une vitalité nouvelle\nJe suis rempli d'une vitalité nouvelle\n\nPriorité du jour : Demander a la lune et les énergies de l'univers de me guider a travers cette nouvelle journée. Je me souhaite un bon 24h"},
+                {"date": "2026-03-04", "jour_date": "mercredi 04/03/26", "journal": "J'ai été efficace lorsque j'ai former le nouveau!je veux plus de défis/objectifs sur la méditation et le maintenance de mon âme"},
+                {"date": "2026-03-12", "jour_date": "jeudi 12/03/26", "journal": "Je me suis levé a 6h45 tout les jours depuis lundi.\nJ'ai eu la gastro lundi & mardi donc j'était en mode repos. Je trouve que 3 objectifs par jour c'est beaucoup. J'ai besoin d'y aller slow. Voici ce que je propose pour la semaine prochaine : 1 exercice de méditation en mouvement (inclure dans mail la façon de bien le faire avec image) & le soir remplir mon journal quotidien avec les infos comment c'est passé ma journée"},
+                {"date": "2026-03-13", "jour_date": "vendredi 13/03/26", "journal": "Ma journée c'est bien passé. J'ai fait de 9h à 19h au boulot et j'ai apprécier. Je me sent compétent. Je jongle souvent entre les extrêmes, les professionnel appel ça du clivage. Je dois retrouver mon centre quotidiennement. En début de semaine j'était malade, alors je me suis reposé, cela vas de soi mais une fois la santé revenu j'était démotivé de retourner travaillé, j'ai pris goût a l'oisiveté (mon pire ennemi après la pensé magieque) et j'ai de la difficultés a transitionner vers un retour a la vie active de façon saine dans ses moments là, donc je succombe a la tentation et je m'enlève la fierté de faire l'effort en consommant des stimulants. Je connais mon pattern, c'est un loop. Même si actuellement je suis fonctionnel, cette drogue ce n'est qu'une fuite perpétuel d'un inconfort même pas si inconfortable. Alors voilà. Pour ce débarrassé d'une habitude il faut en instauré une autres. Le taï-chi m'appel. J'aimerais aussi développé mon cercle social, mon besoin d'appartenir a un groupe et d'être reconnu bat de l'aile c'est dernier temps. Aurais t'il des activité/cours/atelier/événement auquel je pourrais participer dans ma region? Mon travail est a Ste-Marie de beauce, je demeure actuellement a Vallée. J'ai une voiture et je suis a l'aise pour me déplacer dans un rayon de 50km pour trouver ma nouvelle passion. Si Coach pouvais m'aider avec ça j'apprécierais. On lâche pas, je m'aime Xxx"},
+                {"date": "2026-03-13", "jour_date": "vendredi 13/03/26", "journal": "##COACH##\nJ'aimerais que Coach Joseph m'aide a mieux gérer mon calendrier insérer les moments pour objectifs selon mon horaire, etc. J'utilise Proton Calendrier"}
+            ]
+        };
 
-            if (!token || !participant || participant !== 'joseph') {
-                window.location.href = './index.html';
-            }
-        }
-
-        function logout() {
-            if (confirm('Êtes-vous certain de vouloir quitter votre espace coaching?')) {
-                sessionStorage.clear();
-                window.location.href = './index.html';
-            }
-        }
-
-        function switchTab(tabName, btn) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-
-            // Show selected tab
+        function switchTab(event, tabName) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            btn.classList.add('active');
+            event.target.classList.add('active');
+            if (tabName === 'entries') loadEntries();
         }
 
-        // Check authentication on page load
-        checkAuth();
+        function loadEntries() {
+            const entriesList = document.getElementById('entries-list');
+            if (entriesList.children.length > 0) return;
+            rawData.entries.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'entry';
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'entry-date';
+                dateDiv.textContent = entry.jour_date;
+                const textDiv = document.createElement('div');
+                textDiv.className = 'entry-text';
+                textDiv.textContent = entry.journal || '(journal vide)';
+                div.appendChild(dateDiv);
+                div.appendChild(textDiv);
+                entriesList.appendChild(div);
+            });
+        }
+
+        function verifyToken() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token') || sessionStorage.getItem('coachToken');
+            if (!token) { window.location.href = '../index.html'; return; }
+            fetch('../tokens.json').then(res => res.json()).then(tokens => {
+                const validTokens = Object.values(tokens);
+                if (!validTokens.includes(token)) { sessionStorage.removeItem('coachToken'); window.location.href = '../index.html'; }
+                else { sessionStorage.setItem('coachToken', token); }
+            }).catch(() => { window.location.href = '../index.html'; });
+        }
+
+        function logout() { sessionStorage.removeItem('coachToken'); window.location.href = '../index.html'; }
+        verifyToken();
     </script>
 </body>
 </html>
