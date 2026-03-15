@@ -475,7 +475,7 @@
         <header>
             <h1>🏆 Coach Family Dashboard</h1>
             <p class="subtitle">Progression et engagement familial</p>
-            <div class="period">S01-S10 (11 janvier - 21 mars 2026)</div>
+            <div class="period">S01-S10 (11 janvier - 14 mars 2026)</div>
         </header>
 
         <div class="controls">
@@ -519,7 +519,7 @@
     </div>
 
     <footer>
-        <p>Dashboard généré le 13 mars 2026 • Données Google Sheets en temps réel • <a href="https://github.com/Pix4LeP0lich1n4lle/coach-dashboards-family">Repo GitHub</a></p>
+        <p>Dashboard S10 mis à jour le 14 mars 2026 • Données brutes S01-S10 (23-36 entrées par participant) • <a href="https://github.com/Pix4LeP0lich1n4lle/coach-dashboards-family">Repo GitHub</a></p>
     </footer>
 
     <script>
@@ -527,81 +527,88 @@
             marie: {
                 nom: "Marie Giguère",
                 archetype: "L'Observatrice Souveraine",
-                avg_success_rate: 44.3,
+                avg_success_rate: 60,
                 peak_rate: 100,
-                s09_state: "40% FADING",
-                key_breakthrough: "Triangle Karpman discovery S06, creative identity S08",
-                trend: "volatile (20-100%)",
-                emoji: "🔴"
+                s10_state: "60% ENGAGEMENT (consolidation créative)",
+                entries: 23,
+                key_breakthrough: "Formation méditation finalisation, intégration équipe créative, doute Reiki = sagesse",
+                trend: "stable (consolidation post-peak)",
+                emoji: "✨"
             },
             alex: {
                 nom: "Alex Delorey",
                 archetype: "Guerrière de l'Habitude",
-                avg_success_rate: 40,
-                peak_rate: 80,
-                s09_state: "60% ENGAGEMENT",
-                key_breakthrough: "Realistic goal adjustment 40k -> 25-31.5k variable S06",
-                trend: "variable (0-80%)",
-                emoji: "🔵"
+                avg_success_rate: 100,
+                peak_rate: 100,
+                s10_state: "100% ENGAGEMENT (zéro ascenseur)",
+                entries: 36,
+                key_breakthrough: "Escaliers = habitude ancrée, prête pour nouveau domaine, discipline transférable",
+                trend: "stable-high (100% confirmé)",
+                emoji: "🏃‍♀️"
             },
             joseph: {
                 nom: "Joseph Delorey",
                 archetype: "Pilier en Reconstruction",
-                avg_success_rate: 40,
-                peak_rate: 60,
-                s09_state: "20% GHOST (gastro, overload)",
-                key_breakthrough: "Sobriete clarity S06, structure 24h S08",
-                trend: "fragile (20-60%, limited data)",
-                emoji: "🟣"
+                avg_success_rate: 80,
+                peak_rate: 80,
+                s10_state: "80% ENGAGEMENT (lucidité clivage)",
+                entries: 11,
+                key_breakthrough: "Reconnaissance extrêmes, sobriété maintenue, taï-chi = antidote clivage, cercle social priorité",
+                trend: "croissant (remontée post-maladie)",
+                emoji: "🧘‍♂️"
             },
             chantal: {
                 nom: "Chantal Felteau",
                 archetype: "Pragmatique Invisible",
-                avg_success_rate: 32,
+                avg_success_rate: 60,
                 peak_rate: 60,
-                s09_state: "20% GHOST (sporadic journaling, but micromoments integrated)",
-                key_breakthrough: "Tai Chi app S08 (structured, 13min, game-changer)",
-                trend: "rising, sporadic (20-60%)",
-                emoji: "🟢"
+                s10_state: "60% ENGAGEMENT (équilibre durable)",
+                entries: 14,
+                key_breakthrough: "Shape & strengthening maintenu, repos intentionnel NEW, protection stratégique face saturation",
+                trend: "stable (durabilité > intensité)",
+                emoji: "🛡️"
             },
             danielle: {
                 nom: "Danielle Delorey",
                 archetype: "Maîtresse du Calme",
-                avg_success_rate: 73,
+                avg_success_rate: 100,
                 peak_rate: 100,
-                s09_state: "80% ENGAGEMENT",
-                key_breakthrough: "Lit fait matin ritual S04, respiration 4-4-8 tools S09",
-                trend: "stable-high (40-100%, never <20%)",
-                emoji: "🌸"
+                s10_state: "100% ENGAGEMENT (automatisation rituelle)",
+                entries: 36,
+                key_breakthrough: "Rituels maison-travail automatisés, système nerveux régulé, expansion créative + connexion NEW",
+                trend: "stable-high (100% fondation établie)",
+                emoji: "🧘‍♀️"
             }
         };
 
         const groupInsights = [
             {
-                title: "📚 Apprentissage Adaptatif",
-                text: "Le groupe montre une capacité à ajuster les objectifs réalistes. C'est un signe de maturité coaching."
+                title: "🎯 Consolidation S10",
+                text: "Tous les membres sont stables: Marie 60% (créatif), Alex 100% (habitude), Joseph 80% (lucidité), Chantal 60% (protection), Danielle 100% (rituel)."
             },
             {
                 title: "🔄 Rituels > Objectifs",
-                text: "Les rituels (Danielle: lit fait, Marie: méditation, Chantal: Tai Chi) sont plus durables que les strictes listes."
+                text: "Les rituels (Danielle: maison-travail automatisé, Marie: méditation finalisation, Chantal: shape-strengthening) sont le fondement durable."
             },
             {
-                title: "💪 Résilience",
-                text: "Maladie/stress n'ont pas déraciné les participants engagés. Danielle a 80%, même en période chargée."
+                title: "💪 Deux Leaders Stables",
+                text: "Alex (100% zéro ascenseur) et Danielle (100% rituels) ancrent le groupe. Discipline + Calme = équilibre familial."
             },
             {
-                title: "🎯 L'Ancre du Groupe",
-                text: "Danielle est l'ancre avec 73% moyen et jamais <20%. Elle stabilise la dynamique familiale."
+                title: "✨ Transformations en Cours",
+                text: "Marie explore identité créative (équipe, DJ, Reiki). Joseph reconnaît clivage extrêmes (taï-chi solution). Chantal ajoute repos intentionnel."
             },
             {
-                title: "⚡ Percées Clés",
-                text: "S06: Alex ajuste ses objectifs, Joseph se réinscrit. S08: Marie découvre son identité créative."
+                title: "🌱 Expansion Créative S11",
+                text: "S10 marque le pivot: fondations établies → exploration créative. Marie + Danielle prêtes pour nouvelle expression."
             },
             {
-                title: "🌱 Conscience de Soi",
-                text: "Connaître ses limites (Joseph demandant 1-2 objectifs/jour) est une force, pas une faiblesse."
+                title: "🧭 Archétypes en Action",
+                text: "Observatrice Souveraine (Marie) discerne, Guerrière (Alex) consolide, Pilier (Joseph) se rebâtit, Pragmatique (Chantal) dure, Calme (Danielle) crée."
             }
         ];
+
+        let currentFilter = 'all';
 
         function createMemberCard(member) {
             const card = document.createElement('div');
@@ -611,9 +618,9 @@
             const ringClass = member.avg_success_rate >= 70 ? 'success' :
                               member.avg_success_rate >= 50 ? 'warning' : 'danger';
 
-            const badgeClass = member.s09_state.includes('FEU') ? 'feu' :
-                               member.s09_state.includes('ENGAGEMENT') ? 'engagement' :
-                               member.s09_state.includes('FADING') ? 'fading' : 'ghost';
+            const badgeClass = member.s10_state.includes('FEU') ? 'feu' :
+                               member.s10_state.includes('ENGAGEMENT') ? 'engagement' :
+                               member.s10_state.includes('FADING') ? 'fading' : 'ghost';
 
             card.innerHTML = `
                 <div class="member-header">
@@ -621,7 +628,7 @@
                         <div class="member-name">${member.nom}</div>
                         <div class="member-archetype">${member.archetype}</div>
                         <div class="engagement-badge ${badgeClass}">
-                            ${member.s09_state}
+                            ${member.s10_state}
                         </div>
                     </div>
                     <div class="emoji-rank">${member.emoji}</div>
@@ -653,12 +660,47 @@
             return card;
         }
 
+        function getFilteredMembers() {
+            let members = Object.values(memberData)
+                .sort((a, b) => b.avg_success_rate - a.avg_success_rate);
+
+            if (currentFilter === 'all') {
+                return members;
+            } else if (currentFilter === 'top3') {
+                return members.slice(0, 3);
+            } else if (currentFilter === 'rising') {
+                // Membres avec tendance positive (trend contient "rising" ou "volatile")
+                return members.filter(m =>
+                    m.trend.includes('rising') ||
+                    m.trend.includes('volatile') ||
+                    (m.s10_state.includes('ENGAGEMENT') && m.avg_success_rate < 70)
+                );
+            } else if (currentFilter === 'support') {
+                // Membres avec état FADING ou GHOST
+                return members.filter(m =>
+                    m.s10_state.includes('FADING') ||
+                    m.s10_state.includes('GHOST')
+                );
+            }
+            return members;
+        }
+
         function renderDashboard() {
             const dashboard = document.getElementById('dashboard');
             dashboard.innerHTML = '';
 
-            const members = Object.values(memberData)
-                .sort((a, b) => b.avg_success_rate - a.avg_success_rate);
+            const members = getFilteredMembers();
+
+            if (members.length === 0) {
+                const emptyMsg = document.createElement('div');
+                emptyMsg.style.gridColumn = '1 / -1';
+                emptyMsg.style.textAlign = 'center';
+                emptyMsg.style.padding = '40px';
+                emptyMsg.style.color = 'var(--text-secondary)';
+                emptyMsg.textContent = 'Aucun membre dans cette catégorie.';
+                dashboard.appendChild(emptyMsg);
+                return;
+            }
 
             members.forEach(member => {
                 dashboard.appendChild(createMemberCard(member));
@@ -681,7 +723,7 @@
                     <td><span class="rank-medal">${medals[index]}</span></td>
                     <td><span class="rank-name">${member.nom}</span></td>
                     <td><span class="rank-score">${Math.round(member.avg_success_rate)}%</span></td>
-                    <td>${member.s09_state}</td>
+                    <td>${member.s10_state}</td>
                     <td><span class="rank-trend">${trend}</span></td>
                 `;
                 leaderboard.appendChild(row);
@@ -717,7 +759,8 @@
         function filterView(btn, view) {
             document.querySelectorAll('.controls .btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            // Implémentation future pour filtrer les vues
+            currentFilter = view;
+            renderDashboard();
         }
 
         // Initialiser
